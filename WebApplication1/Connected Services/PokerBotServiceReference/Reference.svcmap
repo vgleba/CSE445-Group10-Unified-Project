@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="979c8ae9-ef2b-4901-9259-50bebf20a6bb" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:55613/PokerBotService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PokerBotService.wsdl" MetadataType="Wsdl" ID="4eb6181e-2339-4a9f-8267-f2219734c125" SourceId="1" SourceUrl="http://localhost:55613/PokerBotService.svc?wsdl" />
+    <MetadataFile FileName="PokerBotService.disco" MetadataType="Disco" ID="1606985e-fc06-459a-bdad-731b3661f9bc" SourceId="1" SourceUrl="http://localhost:55613/PokerBotService.svc?disco" />
+    <MetadataFile FileName="PokerBotService.xsd" MetadataType="Schema" ID="ca573f28-12b5-41c0-bbbf-0da4c4b992a4" SourceId="1" SourceUrl="http://localhost:55613/PokerBotService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PokerBotService1.xsd" MetadataType="Schema" ID="84531e98-439f-4685-a715-98f236aa2e72" SourceId="1" SourceUrl="http://localhost:55613/PokerBotService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PokerBotService2.xsd" MetadataType="Schema" ID="d31e605f-1df2-47e1-aa9f-9dbd1ca109d0" SourceId="1" SourceUrl="http://localhost:55613/PokerBotService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
