@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Top10ContentWords", "Top10C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalComponents", "LocalComponents\LocalComponents.csproj", "{16DFCAFD-7052-AD5F-50CA-9ED72B8D6642}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService1", "WcfService1\WcfService1.csproj", "{C71641F1-B87B-43F3-99D7-C3C3845617B9}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{1E6B6B7C-2433-4A66-B3B2-3A62D49B87D3}"
 EndProject
 Global
@@ -53,6 +55,10 @@ Global
 		{16DFCAFD-7052-AD5F-50CA-9ED72B8D6642}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16DFCAFD-7052-AD5F-50CA-9ED72B8D6642}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16DFCAFD-7052-AD5F-50CA-9ED72B8D6642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C71641F1-B87B-43F3-99D7-C3C3845617B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C71641F1-B87B-43F3-99D7-C3C3845617B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C71641F1-B87B-43F3-99D7-C3C3845617B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C71641F1-B87B-43F3-99D7-C3C3845617B9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1E6B6B7C-2433-4A66-B3B2-3A62D49B87D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E6B6B7C-2433-4A66-B3B2-3A62D49B87D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E6B6B7C-2433-4A66-B3B2-3A62D49B87D3}.Release|Any CPU.ActiveCfg = Release|Any CPU

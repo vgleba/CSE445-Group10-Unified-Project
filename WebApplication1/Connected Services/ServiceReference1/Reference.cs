@@ -15,23 +15,11 @@ namespace WebApplication1.ServiceReference1 {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1 {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/c2f", ReplyAction="http://tempuri.org/IService1/c2fResponse")]
-        int c2f(int c);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/WebDownload", ReplyAction="http://tempuri.org/IService1/WebDownloadResponse")]
+        string WebDownload(string url);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/c2f", ReplyAction="http://tempuri.org/IService1/c2fResponse")]
-        System.Threading.Tasks.Task<int> c2fAsync(int c);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/f2c", ReplyAction="http://tempuri.org/IService1/f2cResponse")]
-        int f2c(int f);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/f2c", ReplyAction="http://tempuri.org/IService1/f2cResponse")]
-        System.Threading.Tasks.Task<int> f2cAsync(int f);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/sort", ReplyAction="http://tempuri.org/IService1/sortResponse")]
-        string sort(string s);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/sort", ReplyAction="http://tempuri.org/IService1/sortResponse")]
-        System.Threading.Tasks.Task<string> sortAsync(string s);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/WebDownload", ReplyAction="http://tempuri.org/IService1/WebDownloadResponse")]
+        System.Threading.Tasks.Task<string> WebDownloadAsync(string url);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -61,28 +49,12 @@ namespace WebApplication1.ServiceReference1 {
                 base(binding, remoteAddress) {
         }
         
-        public int c2f(int c) {
-            return base.Channel.c2f(c);
+        public string WebDownload(string url) {
+            return base.Channel.WebDownload(url);
         }
         
-        public System.Threading.Tasks.Task<int> c2fAsync(int c) {
-            return base.Channel.c2fAsync(c);
-        }
-        
-        public int f2c(int f) {
-            return base.Channel.f2c(f);
-        }
-        
-        public System.Threading.Tasks.Task<int> f2cAsync(int f) {
-            return base.Channel.f2cAsync(f);
-        }
-        
-        public string sort(string s) {
-            return base.Channel.sort(s);
-        }
-        
-        public System.Threading.Tasks.Task<string> sortAsync(string s) {
-            return base.Channel.sortAsync(s);
+        public System.Threading.Tasks.Task<string> WebDownloadAsync(string url) {
+            return base.Channel.WebDownloadAsync(url);
         }
     }
 }

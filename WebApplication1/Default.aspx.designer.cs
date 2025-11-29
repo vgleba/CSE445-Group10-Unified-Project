@@ -51,219 +51,318 @@ namespace WebApplication1
         protected global::System.Web.UI.WebControls.GridView gvDirectory;
 
         /// <summary>
-        /// btnNewGame control.
+        /// txtUrl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNewGame;
+        protected global::System.Web.UI.WebControls.TextBox txtUrl;
 
         /// <summary>
-        /// litPoker control.
+        /// btnWebDownload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litPoker;
+        protected global::System.Web.UI.WebControls.Button btnWebDownload;
 
         /// <summary>
-        /// txtPokerGameId control.
+        /// litWebDownloadResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPokerGameId;
+        protected global::System.Web.UI.WebControls.Literal litWebDownloadResult;
 
         /// <summary>
-        /// txtPokerActionType control.
+        /// txtWordFilterInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPokerActionType;
+        protected global::System.Web.UI.WebControls.TextBox txtWordFilterInput;
 
         /// <summary>
-        /// txtPokerAmount control.
+        /// btnWordFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPokerAmount;
+        protected global::System.Web.UI.WebControls.Button btnWordFilter;
 
         /// <summary>
-        /// btnPokerApplyAction control.
+        /// litWordFilterResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPokerApplyAction;
+        protected global::System.Web.UI.WebControls.Literal litWordFilterResult;
 
         /// <summary>
-        /// litPokerApplyActionResult control.
+        /// txtCategoryAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litPokerApplyActionResult;
+        protected global::System.Web.UI.WebControls.TextBox txtCategoryAdd;
 
         /// <summary>
-        /// txtPokerBotGameId control.
+        /// txtItemAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPokerBotGameId;
+        protected global::System.Web.UI.WebControls.TextBox txtItemAdd;
 
         /// <summary>
-        /// btnPokerBot control.
+        /// btnCatalogAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPokerBot;
+        protected global::System.Web.UI.WebControls.Button btnCatalogAdd;
 
         /// <summary>
-        /// litPokerBotResult control.
+        /// litCatalogAddResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litPokerBotResult;
+        protected global::System.Web.UI.WebControls.Literal litCatalogAddResult;
 
         /// <summary>
-        /// txtPokerVisualizeGameId control.
+        /// txtCategoryDel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPokerVisualizeGameId;
+        protected global::System.Web.UI.WebControls.TextBox txtCategoryDel;
 
         /// <summary>
-        /// btnPokerDeckVisualize control.
+        /// txtItemDel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPokerDeckVisualize;
+        protected global::System.Web.UI.WebControls.TextBox txtItemDel;
 
         /// <summary>
-        /// playerDeckView control.
+        /// btnCatalogDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::WebApplication1.PlayerDeckView playerDeckView;
+        protected global::System.Web.UI.WebControls.Button btnCatalogDelete;
 
         /// <summary>
-        /// txtPokerMoneyGameId control.
+        /// litCatalogDeleteResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPokerMoneyGameId;
+        protected global::System.Web.UI.WebControls.Literal litCatalogDeleteResult;
 
         /// <summary>
-        /// btnPokerMoneyVisualize control.
+        /// btnCatalogList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPokerMoneyVisualize;
+        protected global::System.Web.UI.WebControls.Button btnCatalogList;
 
         /// <summary>
-        /// litPokerMoneyStatus control.
+        /// litCatalogListResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litPokerMoneyStatus;
+        protected global::System.Web.UI.WebControls.Literal litCatalogListResult;
 
         /// <summary>
-        /// phPlayersMoney control.
+        /// txtCategoryGet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phPlayersMoney;
+        protected global::System.Web.UI.WebControls.TextBox txtCategoryGet;
 
         /// <summary>
-        /// txtDllHashInput control.
+        /// txtItemGet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDllHashInput;
+        protected global::System.Web.UI.WebControls.TextBox txtItemGet;
 
         /// <summary>
-        /// btnDllHash control.
+        /// btnCatalogGet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDllHash;
+        protected global::System.Web.UI.WebControls.Button btnCatalogGet;
 
         /// <summary>
-        /// litDllHashResult control.
+        /// btnAddToCart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litDllHashResult;
+        protected global::System.Web.UI.WebControls.Button btnAddToCart;
 
         /// <summary>
-        /// txtDllVerifyInput control.
+        /// litCatalogGetResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDllVerifyInput;
+        protected global::System.Web.UI.WebControls.Literal litCatalogGetResult;
 
         /// <summary>
-        /// txtDllHashedInput control.
+        /// btnCartRefresh control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDllHashedInput;
+        protected global::System.Web.UI.WebControls.Button btnCartRefresh;
 
         /// <summary>
-        /// btnDllVerify control.
+        /// btnCartCheckout control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDllVerify;
+        protected global::System.Web.UI.WebControls.Button btnCartCheckout;
 
         /// <summary>
-        /// litDllVerifyResult control.
+        /// litCartResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litDllVerifyResult;
+        protected global::System.Web.UI.WebControls.Literal litCartResult;
+
+        /// <summary>
+        /// pnlAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAddress;
+
+        /// <summary>
+        /// txtState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtState;
+
+        /// <summary>
+        /// txtZip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtZip;
+
+        /// <summary>
+        /// btnProceed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnProceed;
+
+        /// <summary>
+        /// lblAddressError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAddressError;
+
+        /// <summary>
+        /// txtDllEncryptInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDllEncryptInput;
+
+        /// <summary>
+        /// btnDllEncrypt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDllEncrypt;
+
+        /// <summary>
+        /// litDllEncryptResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litDllEncryptResult;
+
+        /// <summary>
+        /// txtDllDecryptInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDllDecryptInput;
+
+        /// <summary>
+        /// btnDllDecrypt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDllDecrypt;
+
+        /// <summary>
+        /// litDllDecryptResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litDllDecryptResult;
     }
 }
