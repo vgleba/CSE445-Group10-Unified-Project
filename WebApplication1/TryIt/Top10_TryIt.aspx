@@ -1,5 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Top10_TryIt.aspx.cs"
-    Inherits="AAI_WebApp.TryIt.Top10_TryIt" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Top10_TryIt.aspx.cs" Inherits="WebApplication1.TryIt.Top10_TryIt" %>
+
 <!DOCTYPE html>
 <html>
 <head runat="server">

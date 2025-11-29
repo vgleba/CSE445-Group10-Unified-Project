@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AAI_WebApp.Top10Svc {
+namespace WebApplication1.Top10Svc {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -23,12 +23,12 @@ namespace AAI_WebApp.Top10Svc {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ITextAnalyticsChannel : AAI_WebApp.Top10Svc.ITextAnalytics, System.ServiceModel.IClientChannel {
+    public interface ITextAnalyticsChannel : WebApplication1.Top10Svc.ITextAnalytics, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class TextAnalyticsClient : System.ServiceModel.ClientBase<AAI_WebApp.Top10Svc.ITextAnalytics>, AAI_WebApp.Top10Svc.ITextAnalytics {
+    public partial class TextAnalyticsClient : System.ServiceModel.ClientBase<WebApplication1.Top10Svc.ITextAnalytics>, WebApplication1.Top10Svc.ITextAnalytics {
         
         public TextAnalyticsClient() {
         }

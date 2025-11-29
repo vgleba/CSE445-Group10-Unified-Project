@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace AAI_WebApp.TryIt
+namespace WebApplication1.TryIt
 {
     public partial class GeoResolve_TryIt : System.Web.UI.Page
     {

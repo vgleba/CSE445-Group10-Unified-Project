@@ -1,6 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true"
-    CodeBehind="ThreatNLP_TryIt.aspx.cs"
-    Inherits="AAI_WebApp.TryIt.ThreatNLP_TryIt" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ThreatNLP_TryIt.aspx.cs" Inherits="WebApplication1.TryIt.ThreatNLP_TryIt" %>
 
 <!DOCTYPE html>
 <html>

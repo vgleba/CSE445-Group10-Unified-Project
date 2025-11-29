@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AAI_WebApp
+namespace WebApplication1.TryIt
 {
 
 
-    public partial class Default
+    public partial class GeoResolve_TryIt
     {
 
         /// <summary>
@@ -24,75 +24,93 @@ namespace AAI_WebApp
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// btnMember control.
+        /// lblEndpoint control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMember;
+        protected global::System.Web.UI.WebControls.Label lblEndpoint;
 
         /// <summary>
-        /// btnStaff control.
+        /// txtLocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStaff;
+        protected global::System.Web.UI.WebControls.TextBox txtLocation;
 
         /// <summary>
-        /// gvDirectory control.
+        /// txtOrigin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDirectory;
+        protected global::System.Web.UI.WebControls.TextBox txtOrigin;
 
         /// <summary>
-        /// txtHashInput control.
+        /// btnExampleDir control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHashInput;
+        protected global::System.Web.UI.WebControls.Button btnExampleDir;
 
         /// <summary>
-        /// btnHash control.
+        /// btnExampleCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnHash;
+        protected global::System.Web.UI.WebControls.Button btnExampleCity;
 
         /// <summary>
-        /// lblHashOutput control.
+        /// btnClear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHashOutput;
+        protected global::System.Web.UI.WebControls.Button btnClear;
 
         /// <summary>
-        /// btnSessions control.
+        /// btnInvoke control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSessions;
+        protected global::System.Web.UI.WebControls.Button btnInvoke;
 
         /// <summary>
-        /// lblSessions control.
+        /// lblError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSessions;
+        protected global::System.Web.UI.WebControls.Label lblError;
+
+        /// <summary>
+        /// txtRawJson control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRawJson;
+
+        /// <summary>
+        /// fvResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FormView fvResult;
     }
 }

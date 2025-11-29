@@ -26,25 +26,25 @@
         <asp:Button runat="server" ID="btnStaff" Text="Staff" OnClick="btnStaff_Click" />
     </section>
 
-    <!-- Service Directory -->
-    <section>
-        <h2>Service Directory</h2>
-        <asp:GridView runat="server" ID="gvDirectory" AutoGenerateColumns="False" GridLines="Both">
-            <Columns>
-                <asp:BoundField DataField="Provider" HeaderText="Provider" />
-                <asp:BoundField DataField="ComponentType" HeaderText="Component Type" />
-                <asp:BoundField DataField="Operation" HeaderText="Operation" />
-                <asp:BoundField DataField="Parameters" HeaderText="Parameters" />
-                <asp:BoundField DataField="ReturnType" HeaderText="Return Type" />
-                <asp:BoundField DataField="Description" HeaderText="Description" />
-                <asp:TemplateField HeaderText="TryIt">
-                    <ItemTemplate>
-                        <asp:HyperLink runat="server" NavigateUrl='<%# Eval("TryItAnchor") %>' Text="Go" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-        </asp:GridView>
-    </section>
+   <h2>Service Directory</h2>
+    <asp:GridView ID="gvDirectory" runat="server" AutoGenerateColumns="false">
+        <Columns>
+            <asp:BoundField HeaderText="Provider" DataField="Provider" />
+            <asp:BoundField HeaderText="Type" DataField="Type" />
+            <asp:BoundField HeaderText="Name" DataField="Name" />
+            <asp:BoundField HeaderText="Parameters" DataField="Parameters" />
+            <asp:BoundField HeaderText="Return" DataField="Return" />
+            <asp:BoundField HeaderText="Description" DataField="Description" />
+            <asp:TemplateField HeaderText="TryIt">
+                <ItemTemplate>
+                    <asp:HyperLink runat="server"
+                        Text="Open"
+                        NavigateUrl='<%# Eval("TryItUrl") %>' />
+                </ItemTemplate>
+            </asp:TemplateField>
+
+        </Columns>
+    </asp:GridView>
 
     <!-- TryIt Panels -->
     <section id="tryit">

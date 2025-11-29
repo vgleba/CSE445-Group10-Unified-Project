@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AAI_WebApp.TryIt
+namespace WebApplication1.TryIt
 {
 
 

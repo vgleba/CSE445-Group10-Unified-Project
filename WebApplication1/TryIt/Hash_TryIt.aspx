@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Hash_TryIt.aspx.cs"
-    Inherits="AAI_WebApp.TryIt.Hash_TryIt" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Hash_TryIt.aspx.cs" Inherits="WebApplication1.TryIt.Hash_TryIt" %>
 
 <!DOCTYPE html>
 <html>

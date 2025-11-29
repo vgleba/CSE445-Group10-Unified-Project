@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebDownload_TryIt.aspx.cs"
-    Inherits="AAI_WebApp.TryIt.WebDownload_TryIt" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebDownload_TryIt.aspx.cs" Inherits="WebApplication1.TryIt.WebDownload_TryIt" %>
 
 <!DOCTYPE html>
 <html>

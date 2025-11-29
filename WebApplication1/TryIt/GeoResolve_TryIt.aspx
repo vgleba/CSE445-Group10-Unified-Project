@@ -1,6 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true"
-    CodeBehind="GeoResolve_TryIt.aspx.cs"
-    Inherits="AAI_WebApp.TryIt.GeoResolve_TryIt" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GeoResolve_TryIt.aspx.cs" Inherits="WebApplication1.TryIt.GeoResolve_TryIt" %>
 
 <!DOCTYPE html>
 <html>

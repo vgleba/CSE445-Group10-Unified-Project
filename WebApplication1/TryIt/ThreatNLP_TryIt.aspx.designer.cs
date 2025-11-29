@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AAI_WebApp.TryIt
+namespace WebApplication1.TryIt
 {
 
 
-    public partial class GeoResolve_TryIt
+    public partial class ThreatNLP_TryIt
     {
 
         /// <summary>
@@ -33,40 +33,31 @@ namespace AAI_WebApp.TryIt
         protected global::System.Web.UI.WebControls.Label lblEndpoint;
 
         /// <summary>
-        /// txtLocation control.
+        /// txtInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLocation;
+        protected global::System.Web.UI.WebControls.TextBox txtInput;
 
         /// <summary>
-        /// txtOrigin control.
+        /// btnExampleUA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOrigin;
+        protected global::System.Web.UI.WebControls.Button btnExampleUA;
 
         /// <summary>
-        /// btnExampleDir control.
+        /// btnExampleEN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExampleDir;
-
-        /// <summary>
-        /// btnExampleCity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExampleCity;
+        protected global::System.Web.UI.WebControls.Button btnExampleEN;
 
         /// <summary>
         /// btnClear control.
@@ -76,6 +67,24 @@ namespace AAI_WebApp.TryIt
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnClear;
+
+        /// <summary>
+        /// btnLoadFromCookie control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnLoadFromCookie;
+
+        /// <summary>
+        /// lblCookieInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCookieInfo;
 
         /// <summary>
         /// btnInvoke control.
@@ -105,12 +114,12 @@ namespace AAI_WebApp.TryIt
         protected global::System.Web.UI.WebControls.TextBox txtRawJson;
 
         /// <summary>
-        /// fvResult control.
+        /// gvEvents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FormView fvResult;
+        protected global::System.Web.UI.WebControls.GridView gvEvents;
     }
 }

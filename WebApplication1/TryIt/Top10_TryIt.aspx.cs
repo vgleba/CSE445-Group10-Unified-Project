@@ -1,7 +1,7 @@
 ﻿using System;
-using AAI_WebApp.Top10Svc;
+using WebApplication1.Top10Svc;
 
-namespace AAI_WebApp.TryIt
+namespace WebApplication1.TryIt
 {
     public partial class Top10_TryIt : System.Web.UI.Page
     {

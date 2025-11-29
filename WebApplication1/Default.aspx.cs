@@ -1,11 +1,12 @@
-﻿using System;
+﻿using LocalComponents;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.UI;
 using WebApplication1.ServiceReference1;
-using LocalComponents;
 
 namespace WebApplication1
 {
@@ -56,102 +57,157 @@ namespace WebApplication1
 
         private void BindServiceDirectory()
         {
-            var rows = new List<DirectoryRow>
-            {
-                new DirectoryRow {
-                    Provider = "Vladyslav Saniuk",
-                    ComponentType = "WSDL (WCF)",
-                    Operation = "WebDownload(url: string)",
-                    Parameters = "url: string",
-                    ReturnType = "string",
-                    Description = "Fetches raw HTML/text from the URL",
-                    TryItAnchor = "#tryitWebDownload"
-                },
-                new DirectoryRow {
-                    Provider = "Vladyslav Saniuk",
-                    ComponentType = "REST",
-                    Operation = "wordfilter(text: string)",
-                    Parameters = "text: string",
-                    ReturnType = "string (filtered words)",
-                    Description = "Removes tags/stopwords; returns tokens",
-                    TryItAnchor = "#tryitWordFilter"
-                },
-                new DirectoryRow {
-                    Provider = "Vladyslav Saniuk",
-                    ComponentType = "REST",
-                    Operation = "catalog add",
-                    Parameters = "category: string, item: string",
-                    ReturnType = "string",
-                    Description = "Adds key/value to JSON catalog",
-                    TryItAnchor = "#tryitCatalogAdd"
-                },
-                new DirectoryRow {
-                    Provider = "Vladyslav Saniuk",
-                    ComponentType = "REST",
-                    Operation = "catalog delete",
-                    Parameters = "category: string, item: string",
-                    ReturnType = "string",
-                    Description = "Deletes key/value from JSON catalog",
-                    TryItAnchor = "#tryitCatalogDelete"
-                },
-                new DirectoryRow {
-                    Provider = "Vladyslav Saniuk",
-                    ComponentType = "REST",
-                    Operation = "catalog list all",
-                    Parameters = "none",
-                    ReturnType = "string (all catalog items)",
-                    Description = "Lists all category/item pairs in JSON catalog",
-                    TryItAnchor = "#tryitCatalogList"
-                },
-                new DirectoryRow {
-                    Provider = "Vladyslav Saniuk",
-                    ComponentType = "REST",
-                    Operation = "catalog get item",
-                    Parameters = "category: string, item: string",
-                    ReturnType = "string (confirmation if found)",
-                    Description = "Gets a specific category/item pair from JSON catalog",
-                    TryItAnchor = "#tryitCatalogGet"
-                },
-                new DirectoryRow {
-                    Provider = "Vladyslav Saniuk",
-                    ComponentType = "REST",
-                    Operation = "cart refresh",
-                    Parameters = "none",
-                    ReturnType = "string (cart items)",
-                    Description = "Displays all items currently in the shopping cart",
-                    TryItAnchor = "#tryitCart"
-                },
-                new DirectoryRow {
-                    Provider = "Vladyslav Saniuk",
-                    ComponentType = "REST",
-                    Operation = "cart checkout",
-                    Parameters = "none",
-                    ReturnType = "string (thank you message)",
-                    Description = "Processes checkout, shows thank you message, validate shipping address via 3rd party API and removes items from catalog",
-                    TryItAnchor = "#tryitCart"
-                },
-                new DirectoryRow {
-                    Provider = "Vladyslav Saniuk",
-                    ComponentType = "DLL",
-                    Operation = "Encrypt",
-                    Parameters = "string input",
-                    ReturnType = "string",
-                    Description = "Local component providing Base64 encryption",
-                    TryItAnchor = "#tryitDllEncrypt"
-                },
-                new DirectoryRow {
-                    Provider = "Vladyslav Saniuk",
-                    ComponentType = "DLL",
-                    Operation = "Decrypt",
-                    Parameters = "string base64",
-                    ReturnType = "string",
-                    Description = "Local component providing Base64 decryption",
-                    TryItAnchor = "#tryitDllDecrypt"
-                }
-            };
+            var table = new DataTable();
+            table.Columns.Add("Provider");
+            table.Columns.Add("Type");
+            table.Columns.Add("Name");
+            table.Columns.Add("Parameters");
+            table.Columns.Add("Return");
+            table.Columns.Add("Description");
+            table.Columns.Add("TryItUrl");
 
-            gvDirectory.DataSource = rows;
+            // Top10ContentWords
+            table.Rows.Add("Volodymyr Gleba", "WCF Service",
+                "Top10ContentWords",
+                "string inputOrUrl",
+                "List<string> top10Words",
+                "Returns the top 10 content words after stopword removal and stemming.",
+                "TryIt/Top10_TryIt.aspx");
+
+            // ThreatNLP
+            table.Rows.Add("Volodymyr Gleba", "REST Service",
+                "ThreatNLP",
+                "string text",
+                "ThreatEvent[]",
+                "Rule-based extractor for threat type, direction, location and timestamp.",
+                "TryIt/ThreatNLP_TryIt.aspx");
+
+            // GeoResolve
+            table.Rows.Add("Volodymyr Gleba", "REST Service",
+                "GeoResolve",
+                "string locationText",
+                "GeoPoint + radius",
+                "Maps place mentions & directions to coordinates using gazetteer.",
+                "TryIt/GeoResolve_TryIt.aspx");
+
+            // WebDownload
+            table.Rows.Add("Volodymyr Gleba", "REST Service",
+                "WebDownload",
+                "string url",
+                "string plainText",
+                "Downloads HTML and returns cleaned text (cap & timeout).",
+                "TryIt/WebDownload_TryIt.aspx");
+
+            // DLL Hash
+            table.Rows.Add("Volodymyr Gleba", "DLL",
+                "SecurityHash.Sha256",
+                "string input",
+                "string hash",
+                "Local hashing function DLL used for credentials and diagnostics.",
+                "TryIt/Hash_TryIt.aspx");
+
+            // Cookie
+            table.Rows.Add("Volodymyr Gleba", "Cookie",
+                "AAI_LastThreatText",
+                "",
+                "string",
+                "Stores last ThreatNLP input text in a browser cookie for 30 minutes.",
+                "TryIt/ThreatNLP_TryIt.aspx");
+
+            table.Rows.Add(
+                "Vladyslav Saniuk",
+                "WSDL (WCF)",
+                "WebDownload(url: string)",
+                "url: string",
+                "string",
+                "Fetches raw HTML/text from the URL",
+                "#tryitWebDownload"
+            );
+            table.Rows.Add(
+                "Vladyslav Saniuk",
+                "REST",
+                "wordfilter(text: string)",
+                "text: string",
+                "string (filtered words)",
+                "Removes tags/stopwords; returns tokens",
+                "#tryitWordFilter"
+            );
+            table.Rows.Add(
+                "Vladyslav Saniuk",
+                "REST",
+                "catalog add",
+                "category: string, item: string",
+                "string",
+                "Adds key/value to JSON catalog",
+                "#tryitCatalogAdd"
+            );
+            table.Rows.Add(
+                "Vladyslav Saniuk",
+                "REST",
+                "catalog delete",
+                "category: string, item: string",
+                "string",
+                "Deletes key/value from JSON catalog",
+                "#tryitCatalogDelete"
+            );
+            table.Rows.Add(
+                "Vladyslav Saniuk",
+                "REST",
+                "catalog list all",
+                "none",
+                "string (all catalog items)",
+                "Lists all category/item pairs in JSON catalog",
+                "#tryitCatalogList"
+            );
+            table.Rows.Add(
+                "Vladyslav Saniuk",
+                "REST",
+                "catalog get item",
+                "category: string, item: string",
+                "string (confirmation if found)",
+                "Gets a specific category/item pair from JSON catalog",
+                "#tryitCatalogGet"
+            );
+            table.Rows.Add(
+                "Vladyslav Saniuk",
+                "REST",
+                "cart refresh",
+                "none",
+                "string (cart items)",
+                "Displays all items currently in the shopping cart",
+                "#tryitCart"
+            );
+            table.Rows.Add(
+                "Vladyslav Saniuk",
+                "REST",
+                "cart checkout",
+                "none",
+                "string (thank you message)",
+                "Processes checkout, shows thank you message, validate shipping address via 3rd party API and removes items from catalog",
+                "#tryitCart"
+            );
+            table.Rows.Add(
+                "Vladyslav Saniuk",
+                "DLL",
+                "Encrypt",
+                "string input",
+                "string",
+                "Local component providing Base64 encryption",
+                "#tryitDllEncrypt"
+            );
+            table.Rows.Add(
+                "Vladyslav Saniuk",
+                "DLL",
+                "Decrypt",
+                "string base64",
+                "string",
+                "Local component providing Base64 decryption",
+                "#tryitDllDecrypt"
+            );
+
+            gvDirectory.DataSource = table;
             gvDirectory.DataBind();
+        
         }
 
         // TryIt handlers
