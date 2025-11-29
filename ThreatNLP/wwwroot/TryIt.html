@@ -1,0 +1,31 @@
+﻿<!doctype html>
+<meta charset="utf-8">
+<h2>ThreatNLP – TryIt</h2>
+<p>POST <code>/api/threat/nlp</code></p>
+<textarea id="nlp_text" rows="5" style="width:100%"></textarea>
+<br>
+<button onclick="goNlp()">Invoke</button>
+<pre id="nlp_out" style="white-space:pre-wrap;border:1px solid #ccc;padding:8px;"></pre>
+
+<hr>
+<h2>GeoResolve – TryIt</h2>
+<p>POST <code>/api/threat/georesolve</code></p>
+<label>location_text: <input id="loc" size="50" placeholder="e.g., NW of Bila Tserkva"></label>
+<br>
+<label>origin (opt): <input id="origin" size="30" placeholder="Kyiv or 50.45,30.52"></label>
+<br>
+<button onclick="goGeo()">Invoke</button>
+<pre id="geo_out" style="white-space:pre-wrap;border:1px solid #ccc;padding:8px;"></pre>
+
+<script>
+async function goNlp(){
+  const body = { text: document.getElementById('nlp_text').value };
+  const r = await fetch('/api/threat/nlp', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  document.getElementById('nlp_out').textContent = await r.text();
+}
+async function goGeo(){
+  const body = { location_Text: document.getElementById('loc').value, origin: document.getElementById('origin').value };
+  const r = await fetch('/api/threat/georesolve', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  document.getElementById('geo_out').textContent = await r.text();
+}
+</script>

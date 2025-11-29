@@ -1,0 +1,23 @@
+﻿[
+  {
+    "name": "Kyiv",
+    "aliases": [ "Kyiv City", "Київ", "Kiev" ],
+    "lat": 50.4501,
+    "lon": 30.5234,
+    "r_km": 10
+  },
+  {
+    "name": "Bila Tserkva",
+    "aliases": [ "Біла Церква", "Bila Tserkva" ],
+    "lat": 49.7969,
+    "lon": 30.1314,
+    "r_km": 8
+  },
+  {
+    "name": "Vinnytsia",
+    "aliases": [ "Вінниця", "Vinnytsya" ],
+    "lat": 49.2331,
+    "lon": 28.4682,
+    "r_km": 8
+  }
+]

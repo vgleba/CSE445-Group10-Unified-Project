@@ -1,0 +1,34 @@
+﻿# English
+a
+an
+the
+and
+or
+of
+to
+in
+is
+are
+for
+with
+on
+at
+by
+from
+that
+this
+it
+be
+as
+# Ukrainian
+та
+і
+у
+в
+на
+від
+до
+за
+що
+це
+як

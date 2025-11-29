@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="56ac289f-c079-4a94-80ea-ef34c6a4daad" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:50401/Services/TextAnalytics.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="TextAnalytics.xsd" MetadataType="Schema" ID="b8ed855d-7388-4bec-a7bb-c893b13d7265" SourceId="1" SourceUrl="http://localhost:50401/Services/TextAnalytics.svc?xsd=xsd0" />
+    <MetadataFile FileName="TextAnalytics1.xsd" MetadataType="Schema" ID="28a9c175-a4fd-4437-8494-fb8375f6cc7e" SourceId="1" SourceUrl="http://localhost:50401/Services/TextAnalytics.svc?xsd=xsd2" />
+    <MetadataFile FileName="TextAnalytics.wsdl" MetadataType="Wsdl" ID="97e5f6f7-6c96-42cb-b807-fe46de0e0838" SourceId="1" SourceUrl="http://localhost:50401/Services/TextAnalytics.svc?wsdl" />
+    <MetadataFile FileName="TextAnalytics.disco" MetadataType="Disco" ID="25d8aa75-2a0d-4207-91f1-ca32e770e3f0" SourceId="1" SourceUrl="http://localhost:50401/Services/TextAnalytics.svc?disco" />
+    <MetadataFile FileName="TextAnalytics2.xsd" MetadataType="Schema" ID="5306562c-a045-49c4-9f1d-1e3a97e4a2b7" SourceId="1" SourceUrl="http://localhost:50401/Services/TextAnalytics.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

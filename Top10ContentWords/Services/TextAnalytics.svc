@@ -1,0 +1,3 @@
+﻿<%@ ServiceHost Language="C#" Debug="true"
+    Service="Top10ContentWords.Services.TextAnalytics"
+    CodeBehind="TextAnalytics.svc.cs" %>

@@ -1,0 +1,108 @@
+﻿<!doctype html>
+<meta charset="utf-8">
+<title>GeoResolve – TryIt</title>
+<style>
+    body {
+        font: 14px system-ui,Segoe UI,Arial;
+        margin: 24px;
+        max-width: 900px
+    }
+
+    code {
+        background: #f5f5f5;
+        padding: 2px 4px;
+        border-radius: 4px
+    }
+
+    pre {
+        white-space: pre-wrap;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 6px
+    }
+
+    .row {
+        margin: 10px 0
+    }
+
+    .btn {
+        padding: 6px 10px;
+        border: 1px solid #888;
+        border-radius: 6px;
+        background: #fafafa;
+        cursor: pointer
+    }
+
+        .btn:hover {
+            background: #eee
+        }
+
+    input {
+        width: 100%
+    }
+</style>
+
+<h1>GeoResolve – TryIt</h1>
+
+<p>
+    <b>Service URL:</b> <code id="svc"></code><br>
+    <b>Method:</b> <code>POST /api/threat/georesolve</code><br>
+    <b>Request:</b> <code>{ location_text: string, origin?: string, text?: string }</code><br>
+    <b>Response:</b> <code>{ lat: number, lon: number, r_km: number }</code>
+</p>
+
+<div class="row">
+    <label>location_text</label>
+    <input id="loc" placeholder='e.g., "NW of Bila Tserkva" or "Vinnytsia"'>
+</div>
+<div class="row">
+    <label>origin (optional)</label>
+    <input id="origin" placeholder='e.g., "Kyiv" or "50.45,30.52"'>
+</div>
+
+<div class="row">
+    <button class="btn" onclick="exDir()">Load example (directional)</button>
+    <button class="btn" onclick="exCity()">Load example (city)</button>
+    <button class="btn" onclick="clearOut()">Clear</button>
+</div>
+
+<div class="row">
+    <button class="btn" onclick="invoke()">Invoke</button>
+</div>
+
+<h3>Response</h3>
+<pre id="out">(no response yet)</pre>
+
+<script>
+    const base = location.origin;
+    document.getElementById('svc').textContent = base + '/api/threat/georesolve';
+
+    function exDir() {
+        document.getElementById('loc').value = 'NW of Bila Tserkva';
+        document.getElementById('origin').value = '';
+    }
+    function exCity() {
+        document.getElementById('loc').value = 'Vinnytsia';
+        document.getElementById('origin').value = '';
+    }
+    function clearOut() { document.getElementById('out').textContent = '(no response yet)'; }
+
+    async function invoke() {
+        const body = {
+            location_Text: document.getElementById('loc').value,
+            origin: document.getElementById('origin').value || null
+        };
+        const r = await fetch(base + '/api/threat/georesolve', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        const text = await r.text();
+        document.getElementById('out').textContent =
+            'HTTP ' + r.status + '\n\n' + pretty(text);
+    }
+
+    function pretty(t) {
+        try { return JSON.stringify(JSON.parse(t), null, 2); }
+        catch (e) { return t; }
+    }
+</script>
