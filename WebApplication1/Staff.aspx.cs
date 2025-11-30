@@ -5,6 +5,8 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Security;
+using System.Web.UI;
+using WebApplication1.PokerBotServiceReference;
 
 namespace WebApplication1
 {
@@ -63,6 +65,24 @@ namespace WebApplication1
                 "string",
                 "Deletes key/value from JSON catalog",
                 "#tryitCatalogDelete"
+            );
+            table.Rows.Add(
+                "Dmytro Ohorodiichuk",
+                "WSDL (WCF)",
+                "Poker bot decision",
+                "gameId: guid",
+                "BotDecisionResponse",
+                "Calls WCF bot service to suggest the next poker action",
+                "#tryitPokerBot"
+            );
+            table.Rows.Add(
+                "Dmytro Ohorodiichuk",
+                "User control",
+                "Poker game state viewer",
+                "gameId: guid",
+                "renders PlayerDeckView",
+                "Loads game JSON from REST API and renders it via PlayerDeckView user control",
+                "#pokerDeckView"
             );
 
             gvStaffDirectory.DataSource = table;
@@ -155,6 +175,67 @@ namespace WebApplication1
             litCatalogDeleteResult.Text = HttpUtility.HtmlEncode(DoDelete(url));
         }
 
+        // Poker Handlers
+        protected void btnPokerBot_Click(object sender, EventArgs e)
+        {
+            if (!Guid.TryParse(txtPokerBotGameId.Text, out Guid gameId))
+            {
+                litPokerBotResult.Text = "Invalid game id.";
+                return;
+            }
+
+            string gameState = DoGet(string.Format("http://webstrar10.fulton.asu.edu/page1/api/games//{0}", gameId));
+
+            if (string.IsNullOrWhiteSpace(gameState))
+            {
+                litPokerBotResult.Text = "Could not load game state.";
+                return;
+            }
+
+            try
+            {
+                BotDecisionResponse botResponse = RequestPokerBot(gameState);
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(string.Format("Action: {0} (Amount: {1})", botResponse.ActionType, botResponse.Amount));
+                sb.AppendLine(string.Format("Narration: {0}", botResponse.Description));
+
+                if (!string.IsNullOrWhiteSpace(botResponse.RawModelResponse))
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("Model response:");
+                    sb.AppendLine(botResponse.RawModelResponse);
+                }
+
+                litPokerBotResult.Text = HttpUtility.HtmlEncode(sb.ToString());
+            }
+            catch (Exception ex)
+            {
+                litPokerBotResult.Text = HttpUtility.HtmlEncode("Error calling PokerBot service: " + ex.Message);
+            }
+        }
+
+        protected void btnPokerDeckVisualize_Click(object sender, EventArgs e)
+        {
+            if (!Guid.TryParse(txtPokerVisualizeGameId.Text, out Guid gameId))
+            {
+                playerDeckView.Visible = true;
+                playerDeckView.ShowErrorMessage("Invalid game id.");
+                return;
+            }
+
+            string gameState = DoGet(string.Format("http://webstrar10.fulton.asu.edu/page1/api/games/{0}", gameId));
+
+            playerDeckView.Visible = true;
+
+            if (string.IsNullOrWhiteSpace(gameState))
+            {
+                playerDeckView.ShowErrorMessage("Could not load game state.");
+                return;
+            }
+
+            playerDeckView.RenderFromJson(gameState);
+        }
+
         // Helper Methods
         private string GetBaseUri()
         {
@@ -209,6 +290,13 @@ namespace WebApplication1
                     return reader.ReadToEnd();
             }
             catch { return ex.Message; }
+        }
+
+        private BotDecisionResponse RequestPokerBot(string gameStateJson)
+        {
+            BotRequest request = new BotRequest { GameStateJson = gameStateJson };
+            BotDecisionResponse response = new PokerBotServiceClient().GetBotDecision(request);
+            return response;
         }
     }
 }

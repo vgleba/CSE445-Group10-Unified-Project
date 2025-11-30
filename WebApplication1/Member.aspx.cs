@@ -6,6 +6,9 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Security;
+using System.Web.UI;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace WebApplication1
 {
@@ -73,6 +76,33 @@ namespace WebApplication1
                 "string (thank you message)",
                 "Processes checkout, shows thank you message, validate shipping address via 3rd party API and removes items from catalog",
                 "#tryitCart"
+            );
+            table.Rows.Add(
+                "Dmytro Ohorodiichuk",
+                "REST",
+                "Poker new game",
+                "none",
+                "string (game JSON)",
+                "Creates a new poker game in the engine",
+                "#tryitPokerNewGame"
+            );
+            table.Rows.Add(
+                "Dmytro Ohorodiichuk",
+                "REST",
+                "Poker apply action",
+                "gameId: guid, actionType: string, amount: int",
+                "string (game JSON)",
+                "Submits a player action to the poker engine",
+                "#tryitPokerApplyAction"
+            );
+            table.Rows.Add(
+                "Dmytro Ohorodiichuk",
+                "User control",
+                "Poker players money view",
+                "gameId: guid",
+                "renders PlayerMoneyView list",
+                "Loads game JSON from REST API and renders PlayerMoneyView controls for each player",
+                "#pokerPlayersMoneyView"
             );
 
             gvMemberDirectory.DataSource = table;
@@ -268,6 +298,110 @@ namespace WebApplication1
             catch (Exception ex)
             {
                 lblAddressError.Text = string.Format("Error validating address: {0}. Please try again.", ex.Message);
+            }
+        }
+
+        // Poker Handlers
+        protected void btnNewGame_Click(object sender, EventArgs e)
+        {
+            string result = DoPut("http://webstrar10.fulton.asu.edu/page1/api/games/", "");
+            litPoker.Text = JToken.Parse(result).ToString(Formatting.Indented).Replace("\r\n", "<br/>");
+        }
+
+        protected void btnPokerApplyAction_Click(object sender, EventArgs e)
+        {
+            if (!Guid.TryParse(txtPokerGameId.Text, out Guid gameId))
+            {
+                litPokerApplyActionResult.Text = "Invalid game id.";
+                return;
+            }
+
+            int amount = 0;
+            if (!string.IsNullOrWhiteSpace(txtPokerAmount.Text) && !int.TryParse(txtPokerAmount.Text, out amount))
+            {
+                litPokerApplyActionResult.Text = "Amount must be a number.";
+                return;
+            }
+
+            var request = new
+            {
+                GameId = gameId,
+                ActionType = txtPokerActionType.Text,
+                Amount = amount
+            };
+
+            string response = DoPost("http://webstrar10.fulton.asu.edu/page1/api/games/apply", JsonConvert.SerializeObject(request));
+
+            try
+            {
+                litPokerApplyActionResult.Text = JToken.Parse(response).ToString(Formatting.Indented).Replace("\r\n", "<br/>");
+            }
+            catch (JsonReaderException)
+            {
+                litPokerApplyActionResult.Text = HttpUtility.HtmlEncode(response);
+            }
+        }
+
+        protected void btnPokerMoneyVisualize_Click(object sender, EventArgs e)
+        {
+            phPlayersMoney.Controls.Clear();
+            litPokerMoneyStatus.Text = string.Empty;
+
+            if (!Guid.TryParse(txtPokerMoneyGameId.Text, out Guid gameId))
+            {
+                litPokerMoneyStatus.Text = "Invalid game id.";
+                return;
+            }
+
+            string gameState = DoGet(string.Format("http://webstrar10.fulton.asu.edu/page1/api/games/{0}", gameId));
+
+            if (string.IsNullOrWhiteSpace(gameState))
+            {
+                litPokerMoneyStatus.Text = "Could not load game state.";
+                return;
+            }
+
+            try
+            {
+                JObject game = JObject.Parse(gameState);
+                JArray players = (JArray)game["Players"];
+
+                if (players == null || players.Count == 0)
+                {
+                    litPokerMoneyStatus.Text = "No players found for this game.";
+                    return;
+                }
+
+                foreach (JToken player in players)
+                {
+                    string playerId = player.Value<string>("PlayerId");
+                    int stack = player.Value<int?>("Stack") ?? 0;
+                    int currentBet = player.Value<int?>("CurrentBet") ?? 0;
+                    bool folded = player.Value<bool?>("Folded") ?? false;
+
+                    PlayerMoneyView moneyView = (PlayerMoneyView)LoadControl("~/PlayerMoneyView.ascx");
+                    moneyView.BindPlayer(Guid.Parse(playerId), stack, currentBet, folded);
+                    phPlayersMoney.Controls.Add(moneyView);
+                }
+            }
+            catch (JsonReaderException)
+            {
+                litPokerMoneyStatus.Text = HttpUtility.HtmlEncode(gameState);
+            }
+            catch (Exception ex)
+            {
+                litPokerMoneyStatus.Text = HttpUtility.HtmlEncode("Error loading game: " + ex.Message);
+            }
+        }
+
+        private string DoPut(string url, string body)
+        {
+            using (WebClient wc = new WebClient())
+            {
+                wc.Encoding = Encoding.UTF8;
+                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                try { return wc.UploadString(url, "PUT", body ?? string.Empty); }
+                catch (WebException ex) { return ReadError(ex); }
             }
         }
 

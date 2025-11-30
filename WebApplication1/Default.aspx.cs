@@ -1,15 +1,11 @@
 ﻿using LocalComponents;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.UI;
 using WebApplication1.ServiceReference1;
-using WebApplication1.PokerBotServiceReference;
 
 namespace WebApplication1
 {
@@ -165,51 +161,6 @@ namespace WebApplication1
             );
             table.Rows.Add(
                 "Dmytro Ohorodiichuk",
-                "REST",
-                "Poker new game",
-                "none",
-                "string (game JSON)",
-                "Creates a new poker game in the engine",
-                "#tryitPokerNewGame"
-            );
-            table.Rows.Add(
-                "Dmytro Ohorodiichuk",
-                "REST",
-                "Poker apply action",
-                "gameId: guid, actionType: string, amount: int",
-                "string (game JSON)",
-                "Submits a player action to the poker engine",
-                "#tryitPokerApplyAction"
-            );
-            table.Rows.Add(
-                "Dmytro Ohorodiichuk",
-                "WSDL (WCF)",
-                "Poker bot decision",
-                "gameId: guid",
-                "BotDecisionResponse",
-                "Calls WCF bot service to suggest the next poker action",
-                "#tryitPokerBot"
-            );
-            table.Rows.Add(
-                "Dmytro Ohorodiichuk",
-                "User control",
-                "Poker game state viewer",
-                "gameId: guid",
-                "renders PlayerDeckView",
-                "Loads game JSON from REST API and renders it via PlayerDeckView user control",
-                "#pokerDeckView"
-            );
-            table.Rows.Add(
-                "Dmytro Ohorodiichuk",
-                "User control",
-                "Poker players money view",
-                "gameId: guid",
-                "renders PlayerMoneyView list",
-                "Loads game JSON from REST API and renders PlayerMoneyView controls for each player",
-                "#pokerPlayersMoneyView"
-            );
-            table.Rows.Add(
-                "Dmytro Ohorodiichuk",
                 "DLL",
                 "Password hash",
                 "string input",
@@ -310,158 +261,6 @@ namespace WebApplication1
             }
         }
 
-        private string GetBaseUri()
-        {
-            var req = HttpContext.Current.Request;
-            var appPath = req.ApplicationPath;
-            if (!appPath.EndsWith("/")) appPath += "/";
-            return $"{req.Url.Scheme}://{req.Url.Authority}{appPath}";
-        }
-
-        private string DoPost(string url, string body)
-        {
-            using (var wc = new WebClient())
-            {
-                wc.Encoding = Encoding.UTF8;
-                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                try { return wc.UploadString(url, "POST", body ?? string.Empty); }
-                catch (WebException ex) { return ReadError(ex); }
-            }
-        }
-
-        private string DoGet(string url)
-        {
-            using (var wc = new WebClient())
-            {
-                wc.Encoding = Encoding.UTF8;
-                try { return wc.DownloadString(url); }
-                catch (WebException ex) { return ReadError(ex); }
-            }
-        }
-
-        private string DoDelete(string url)
-        {
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "DELETE";
-            try
-            {
-                using (var resp = (HttpWebResponse)request.GetResponse())
-                using (var stream = resp.GetResponseStream())
-                using (var reader = new System.IO.StreamReader(stream))
-                    return reader.ReadToEnd();
-            }
-            catch (WebException ex) { return ReadError(ex); }
-        }
-
-        private string ReadError(WebException ex)
-        {
-            try
-            {
-                using (var resp = (HttpWebResponse)ex.Response)
-                using (var stream = resp.GetResponseStream())
-                using (var reader = new System.IO.StreamReader(stream))
-                    return reader.ReadToEnd();
-            }
-            catch { return ex.Message; }
-        }
-
-        private BotDecisionResponse RequestPokerBot(string gameStateJson)
-        {
-            BotRequest request = new BotRequest { GameStateJson = gameStateJson };
-            BotDecisionResponse response = new PokerBotServiceClient().GetBotDecision(request);
-
-            return response;
-        }
-
-        private string DoPut(string url, string body)
-        {
-            using (WebClient wc = new WebClient())
-            {
-                wc.Encoding = Encoding.UTF8;
-                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                try { return wc.UploadString(url, "PUT", body ?? string.Empty); }
-                catch (WebException ex) { return ReadError(ex); }
-            }
-        }
-
-        protected void btnNewGame_Click(object sender, EventArgs e)
-        {
-            string result = DoPut("http://webstrar10.fulton.asu.edu/page1/api/games/", "");
-            litPoker.Text = JToken.Parse(result).ToString(Newtonsoft.Json.Formatting.Indented).Replace("\r\n", "<br/>");
-        }
-
-        protected void btnPokerApplyAction_Click(object sender, EventArgs e)
-        {
-            if (!Guid.TryParse(txtPokerGameId.Text, out Guid gameId))
-            {
-                litPokerApplyActionResult.Text = "Invalid game id.";
-                return;
-            }
-
-            int amount = 0;
-            if (!string.IsNullOrWhiteSpace(txtPokerAmount.Text) && !int.TryParse(txtPokerAmount.Text, out amount))
-            {
-                litPokerApplyActionResult.Text = "Amount must be a number.";
-                return;
-            }
-
-            var request = new
-            {
-                GameId = gameId,
-                ActionType = txtPokerActionType.Text,
-                Amount = amount
-            };
-
-            string response = DoPost("http://webstrar10.fulton.asu.edu/page1/api/games/apply", JsonConvert.SerializeObject(request));
-
-            try
-            {
-                litPokerApplyActionResult.Text = JToken.Parse(response).ToString(Newtonsoft.Json.Formatting.Indented).Replace("\r\n", "<br/>");
-            }
-            catch (JsonReaderException)
-            {
-                litPokerApplyActionResult.Text = HttpUtility.HtmlEncode(response);
-            }
-        }
-
-        protected void btnPokerBot_Click(object sender, EventArgs e)
-        {
-            if (!Guid.TryParse(txtPokerBotGameId.Text, out Guid gameId))
-            {
-                litPokerBotResult.Text = "Invalid game id.";
-                return;
-            }
-
-            string gameState = DoGet($"http://webstrar10.fulton.asu.edu/page1/api/games//{gameId}");
-
-            if (string.IsNullOrWhiteSpace(gameState))
-            {
-                litPokerBotResult.Text = "Could not load game state.";
-                return;
-            }
-
-            try
-            {
-                BotDecisionResponse botResponse = RequestPokerBot(gameState);
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine($"Action: {botResponse.ActionType} (Amount: {botResponse.Amount})");
-                sb.AppendLine($"Narration: {botResponse.Description}");
-
-                if (!string.IsNullOrWhiteSpace(botResponse.RawModelResponse))
-                {
-                    sb.AppendLine();
-                    sb.AppendLine("Model response:");
-                    sb.AppendLine(botResponse.RawModelResponse);
-                }
-
-                litPokerBotResult.Text = HttpUtility.HtmlEncode(sb.ToString());
-            }
-            catch (Exception ex)
-            {
-                litPokerBotResult.Text = HttpUtility.HtmlEncode("Error calling PokerBot service: " + ex.Message);
-            }
-        }
-
         protected void btnDllHash_Click(object sender, EventArgs e)
         {
             string data = txtDllHashInput.Text ?? "";
@@ -491,78 +290,45 @@ namespace WebApplication1
             }
         }
 
-        protected void btnPokerDeckVisualize_Click(object sender, EventArgs e)
+        private string GetBaseUri()
         {
-            if (!Guid.TryParse(txtPokerVisualizeGameId.Text, out Guid gameId))
-            {
-                playerDeckView.Visible = true;
-                playerDeckView.ShowErrorMessage("Invalid game id.");
-                return;
-            }
-
-            string gameState = DoGet($"http://webstrar10.fulton.asu.edu/page1/api/games/{gameId}");
-
-            playerDeckView.Visible = true;
-
-            if (string.IsNullOrWhiteSpace(gameState))
-            {
-                playerDeckView.ShowErrorMessage("Could not load game state.");
-                return;
-            }
-
-            playerDeckView.RenderFromJson(gameState);
+            var req = HttpContext.Current.Request;
+            var appPath = req.ApplicationPath;
+            if (!appPath.EndsWith("/")) appPath += "/";
+            return $"{req.Url.Scheme}://{req.Url.Authority}{appPath}";
         }
 
-        protected void btnPokerMoneyVisualize_Click(object sender, EventArgs e)
+        private string DoPost(string url, string body)
         {
-            phPlayersMoney.Controls.Clear();
-            litPokerMoneyStatus.Text = string.Empty;
-
-            if (!Guid.TryParse(txtPokerMoneyGameId.Text, out Guid gameId))
+            using (var wc = new WebClient())
             {
-                litPokerMoneyStatus.Text = "Invalid game id.";
-                return;
+                wc.Encoding = Encoding.UTF8;
+                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                try { return wc.UploadString(url, "POST", body ?? string.Empty); }
+                catch (WebException ex) { return ReadError(ex); }
             }
+        }
 
-            string gameState = DoGet($"http://webstrar10.fulton.asu.edu/page1/api/games/{gameId}");
-
-            if (string.IsNullOrWhiteSpace(gameState))
+        private string DoGet(string url)
+        {
+            using (var wc = new WebClient())
             {
-                litPokerMoneyStatus.Text = "Could not load game state.";
-                return;
+                wc.Encoding = Encoding.UTF8;
+                try { return wc.DownloadString(url); }
+                catch (WebException ex) { return ReadError(ex); }
             }
+        }
 
+        private string ReadError(WebException ex)
+        {
             try
             {
-                JObject game = JObject.Parse(gameState);
-                JArray players = (JArray)game["Players"];
-
-                if (players == null || players.Count == 0)
-                {
-                    litPokerMoneyStatus.Text = "No players found for this game.";
-                    return;
-                }
-
-                foreach (JToken player in players)
-                {
-                    string playerId = player.Value<string>("PlayerId");
-                    int stack = player.Value<int?>("Stack") ?? 0;
-                    int currentBet = player.Value<int?>("CurrentBet") ?? 0;
-                    bool folded = player.Value<bool?>("Folded") ?? false;
-
-                    PlayerMoneyView moneyView = (PlayerMoneyView)LoadControl("~/PlayerMoneyView.ascx");
-                    moneyView.BindPlayer(Guid.Parse(playerId), stack, currentBet, folded);
-                    phPlayersMoney.Controls.Add(moneyView);
-                }
+                using (var resp = (HttpWebResponse)ex.Response)
+                using (var stream = resp.GetResponseStream())
+                using (var reader = new System.IO.StreamReader(stream))
+                    return reader.ReadToEnd();
             }
-            catch (JsonReaderException)
-            {
-                litPokerMoneyStatus.Text = HttpUtility.HtmlEncode(gameState);
-            }
-            catch (Exception ex)
-            {
-                litPokerMoneyStatus.Text = HttpUtility.HtmlEncode("Error loading game: " + ex.Message);
-            }
+            catch { return ex.Message; }
         }
     }
 }

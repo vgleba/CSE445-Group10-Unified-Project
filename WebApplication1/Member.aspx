@@ -1,4 +1,6 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Member.aspx.cs" Inherits="WebApplication1.Member" %>
+<%@ Register Src="PlayerMoneyView.ascx" TagPrefix="uc" TagName="PlayerMoneyView" %>
+
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -117,6 +119,53 @@
             <asp:Button runat="server" ID="btnProceed" Text="Proceed" OnClick="btnProceed_Click" ValidationGroup="Address" />
             <asp:Label runat="server" ID="lblAddressError" ForeColor="Red" style="display: block; margin-top: 10px;" />
         </asp:Panel>
+    </div>
+
+    <!-- Poker: New Game -->
+    <div id="tryitPokerNewGame" class="tryit-section">
+        <h3>Poker New Game (REST)</h3>
+        <asp:Button runat="server" ID="btnNewGame" Text="New Game" OnClick="btnNewGame_Click" />
+        <pre><asp:Literal runat="server" ID="litPoker" /></pre>
+    </div>
+
+    <!-- Poker: Apply Action -->
+    <div id="tryitPokerApplyAction" class="tryit-section">
+        <h3>Poker Apply Action (REST)</h3>
+        <div class="input-group">
+            <label>Game Id:</label>
+            <asp:TextBox runat="server" ID="txtPokerGameId" Width="400" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPokerGameId"
+                ErrorMessage="Game Id is required" ValidationGroup="PokerAction"
+                CssClass="validation-error" Display="Dynamic" />
+        </div>
+        <div class="input-group">
+            <label>Action Type (Raise/Call/Fold):</label>
+            <asp:TextBox runat="server" ID="txtPokerActionType" Width="200" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPokerActionType"
+                ErrorMessage="Action type is required" ValidationGroup="PokerAction"
+                CssClass="validation-error" Display="Dynamic" />
+        </div>
+        <div class="input-group">
+            <label>Amount (0 for fold/check):</label>
+            <asp:TextBox runat="server" ID="txtPokerAmount" Width="200" />
+        </div>
+        <asp:Button runat="server" ID="btnPokerApplyAction" Text="Apply Action" OnClick="btnPokerApplyAction_Click" ValidationGroup="PokerAction" />
+        <pre><asp:Literal runat="server" ID="litPokerApplyActionResult" /></pre>
+    </div>
+
+    <!-- Poker: Players Money View -->
+    <div id="pokerPlayersMoneyView" class="tryit-section">
+        <h3>Poker Players Money View</h3>
+        <div class="input-group">
+            <label>Game Id:</label>
+            <asp:TextBox runat="server" ID="txtPokerMoneyGameId" Width="400" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPokerMoneyGameId"
+                ErrorMessage="Game Id is required" ValidationGroup="PokerMoney"
+                CssClass="validation-error" Display="Dynamic" />
+        </div>
+        <asp:Button runat="server" ID="btnPokerMoneyVisualize" Text="Visualize" OnClick="btnPokerMoneyVisualize_Click" ValidationGroup="PokerMoney" />
+        <asp:Literal runat="server" ID="litPokerMoneyStatus" />
+        <asp:PlaceHolder runat="server" ID="phPlayersMoney" />
     </div>
 
 </form>

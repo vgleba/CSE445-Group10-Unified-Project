@@ -1,4 +1,6 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Staff.aspx.cs" Inherits="WebApplication1.Staff" %>
+<%@ Register Src="PlayerDeckView.ascx" TagPrefix="uc" TagName="PlayerDeckView" %>
+
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -102,6 +104,34 @@
         </div>
         <asp:Button runat="server" ID="btnCatalogDelete" Text="Delete" OnClick="btnCatalogDelete_Click" ValidationGroup="CatalogDelete" />
         <pre><asp:Literal runat="server" ID="litCatalogDeleteResult" /></pre>
+    </div>
+
+    <!-- Poker: Bot Decision -->
+    <div id="tryitPokerBot" class="tryit-section">
+        <h3>Poker Bot Decision (WCF)</h3>
+        <div class="input-group">
+            <label>Game Id:</label>
+            <asp:TextBox runat="server" ID="txtPokerBotGameId" Width="400" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPokerBotGameId"
+                ErrorMessage="Game Id is required" ValidationGroup="PokerBot"
+                CssClass="validation-error" Display="Dynamic" />
+        </div>
+        <asp:Button runat="server" ID="btnPokerBot" Text="Ask Bot" OnClick="btnPokerBot_Click" ValidationGroup="PokerBot" />
+        <pre><asp:Literal runat="server" ID="litPokerBotResult" /></pre>
+    </div>
+
+    <!-- Poker: Game State Viewer -->
+    <div id="pokerDeckView" class="tryit-section">
+        <h3>Poker Game State Viewer</h3>
+        <div class="input-group">
+            <label>Game Id:</label>
+            <asp:TextBox runat="server" ID="txtPokerVisualizeGameId" Width="400" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPokerVisualizeGameId"
+                ErrorMessage="Game Id is required" ValidationGroup="PokerVisualize"
+                CssClass="validation-error" Display="Dynamic" />
+        </div>
+        <asp:Button runat="server" ID="btnPokerDeckVisualize" Text="Visualize" OnClick="btnPokerDeckVisualize_Click" ValidationGroup="PokerVisualize" />
+        <uc:PlayerDeckView runat="server" ID="playerDeckView" Visible="false" />
     </div>
 
 </form>
