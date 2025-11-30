@@ -75,14 +75,6 @@ namespace WebApplication1
                 "TryIt/ThreatNLP_TryIt.aspx");
             table.Rows.Add(
                 "Volodymyr Gleba", 
-                "REST Service",
-                "WebDownload",
-                "string url",
-                "string plainText",
-                "Downloads HTML and returns cleaned text (cap & timeout).",
-                "TryIt/WebDownload_TryIt.aspx");
-            table.Rows.Add(
-                "Volodymyr Gleba", 
                 "DLL",
                 "SecurityHash.Sha256",
                 "string input",
