@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 using System.Net;
-using System.IO;
-using System.Text.RegularExpressions;
+using System.ServiceModel.Activation;
 
 namespace WcfService1
 {
+    [AspNetCompatibilityRequirements(
+        RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class Service1 : IService1
     {
         public string WebDownload(string url)
