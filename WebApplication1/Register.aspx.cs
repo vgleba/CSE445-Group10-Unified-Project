@@ -15,7 +15,6 @@ namespace WebApplication1
             string password = txtPassword.Text;
             string confirmPassword = txtConfirmPassword.Text;
 
-            // Validate input
             if (string.IsNullOrWhiteSpace(username))
             {
                 litMessage.Text = "<p style='color:red;'>Username is required.</p>";
@@ -34,12 +33,10 @@ namespace WebApplication1
                 return;
             }
 
-            // Attempt to register
             bool success = AccountStore.RegisterMember(username, password);
 
             if (success)
             {
-                // Registration successful - mark as member (not staff) and log in the user
                 Session["IsStaff"] = false;
                 FormsAuthentication.SetAuthCookie(username, false);
                 Response.Redirect("~/Member.aspx", false);

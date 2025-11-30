@@ -18,22 +18,18 @@ namespace WebApplication1
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Ensure user is authenticated
             if (!User.Identity.IsAuthenticated)
             {
                 FormsAuthentication.RedirectToLoginPage();
                 return;
             }
 
-            // Ensure user is staff (has IsStaff session variable set to true)
             if (Session["IsStaff"] == null || !Convert.ToBoolean(Session["IsStaff"]))
             {
-                // User is authenticated but not authorized as staff
                 Response.Redirect("~/Default.aspx");
                 return;
             }
 
-            // Display welcome message with username
             if (!IsPostBack)
             {
                 lblWelcome.Text = "Welcome, " + User.Identity.Name;
@@ -104,19 +100,13 @@ namespace WebApplication1
 
         protected void btnLogout_Click(object sender, EventArgs e)
         {
-            // Sign out from Forms Authentication
             FormsAuthentication.SignOut();
-            
-            // Clear all session data
             Session.Clear();
-            
-            // Redirect to homepage
             Response.Redirect("~/Default.aspx");
         }
 
         protected void btnChangePassword_Click(object sender, EventArgs e)
         {
-            // Ensure user is authenticated and is staff
             if (!User.Identity.IsAuthenticated ||
                 Session["IsStaff"] == null || !Convert.ToBoolean(Session["IsStaff"]))
             {
@@ -131,7 +121,6 @@ namespace WebApplication1
 
             lblChangePasswordMessage.Text = "";
             
-            // Basic validation
             if (string.IsNullOrWhiteSpace(oldPassword) ||
                 string.IsNullOrWhiteSpace(newPassword) ||
                 string.IsNullOrWhiteSpace(confirmNewPassword))
@@ -148,7 +137,6 @@ namespace WebApplication1
                 return;
             }
 
-            // Enforce minimum password length
             if (newPassword.Length < 6)
             {
                 lblChangePasswordMessage.ForeColor = Color.Red;
@@ -173,7 +161,6 @@ namespace WebApplication1
             }
         }
 
-        // Catalog Management Handlers
         protected void btnCatalogAdd_Click(object sender, EventArgs e)
         {
             var baseUri = GetBaseUri();
@@ -188,7 +175,6 @@ namespace WebApplication1
             litCatalogDeleteResult.Text = HttpUtility.HtmlEncode(DoDelete(url));
         }
 
-        // Poker Handlers
         protected void btnPokerBot_Click(object sender, EventArgs e)
         {
             if (!Guid.TryParse(txtPokerBotGameId.Text, out Guid gameId))
@@ -249,7 +235,6 @@ namespace WebApplication1
             playerDeckView.RenderFromJson(gameState);
         }
 
-        // GeoResolve Handler
         protected void btnGeoResolve_Click(object sender, EventArgs e)
         {
             lblGeoError.Text = string.Empty;
@@ -295,7 +280,6 @@ namespace WebApplication1
             }
         }
 
-        // Helper Methods
         private string GetBaseUri()
         {
             var req = HttpContext.Current.Request;

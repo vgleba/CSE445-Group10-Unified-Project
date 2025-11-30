@@ -17,22 +17,18 @@ namespace WebApplication1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Ensure user is authenticated
             if (!User.Identity.IsAuthenticated)
             {
                 FormsAuthentication.RedirectToLoginPage();
                 return;
             }
 
-            // Ensure user is a member (not staff) - IsStaff should be false
             if (Session["IsStaff"] == null || Convert.ToBoolean(Session["IsStaff"]))
             {
-                // User is authenticated but either role is not set or user is staff
                 Response.Redirect("~/Default.aspx");
                 return;
             }
 
-            // Display welcome message with username
             if (!IsPostBack)
             {
                 lblWelcome.Text = "Welcome, " + User.Identity.Name;
@@ -121,19 +117,13 @@ namespace WebApplication1
 
         protected void btnLogout_Click(object sender, EventArgs e)
         {
-            // Sign out from Forms Authentication
             FormsAuthentication.SignOut();
-            
-            // Clear all session data
             Session.Clear();
-            
-            // Redirect to homepage
             Response.Redirect("~/Default.aspx");
         }
 
         protected void btnChangePassword_Click(object sender, EventArgs e)
         {
-            // Ensure user is authenticated and is a member (not staff)
             if (!User.Identity.IsAuthenticated ||
                 Session["IsStaff"] == null || Convert.ToBoolean(Session["IsStaff"]))
             {
@@ -148,7 +138,6 @@ namespace WebApplication1
 
             lblChangePasswordMessage.Text = "";
             
-            // Basic validation
             if (string.IsNullOrWhiteSpace(oldPassword) ||
                 string.IsNullOrWhiteSpace(newPassword) ||
                 string.IsNullOrWhiteSpace(confirmNewPassword))
@@ -165,7 +154,6 @@ namespace WebApplication1
                 return;
             }
 
-            // Enforce minimum password length
             if (newPassword.Length < 6)
             {
                 lblChangePasswordMessage.ForeColor = Color.Red;
@@ -190,7 +178,6 @@ namespace WebApplication1
             }
         }
 
-        // Catalog and Cart Handlers
         protected void btnCatalogGet_Click(object sender, EventArgs e)
         {
             var baseUri = GetBaseUri();
@@ -199,7 +186,6 @@ namespace WebApplication1
             var result = DoGet(url);
             litCatalogGetResult.Text = HttpUtility.HtmlEncode(result);
             
-            // Show the "Add to Cart" button only if the item was found
             if (result.StartsWith("Found:"))
             {
                 btnAddToCart.Visible = true;
@@ -253,7 +239,6 @@ namespace WebApplication1
             var result = DoPost(url, "");
             litCartResult.Text = HttpUtility.HtmlEncode(result);
             
-            // Show the address validation panel after displaying cart contents
             if (result.Contains("Thank you for shopping with us!"))
             {
                 pnlAddress.Visible = true;
@@ -311,7 +296,6 @@ namespace WebApplication1
             }
         }
 
-        // Poker Handlers
         protected void btnNewGame_Click(object sender, EventArgs e)
         {
             string result = DoPut("http://webstrar10.fulton.asu.edu/page1/api/games/", "");
@@ -415,7 +399,6 @@ namespace WebApplication1
             }
         }
 
-        // Top10 Handler
         protected void btnTop10_Click(object sender, EventArgs e)
         {
             bltTop10Results.Items.Clear();
@@ -437,7 +420,6 @@ namespace WebApplication1
             }
         }
 
-        // Helper Methods
         private string ExtractStateFromZipResponse(string jsonResponse)
         {
             try
