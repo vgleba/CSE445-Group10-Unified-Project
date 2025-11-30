@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Net.Http;
+using System.ServiceModel.Activation;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -8,6 +9,8 @@ using Top10ContentWords.Logic;
 
 namespace Top10ContentWords.Services
 {
+    [AspNetCompatibilityRequirements(
+    RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class TextAnalytics : ITextAnalytics
     {
         private static readonly HttpClient Http = new HttpClient
