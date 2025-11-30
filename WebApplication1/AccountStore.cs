@@ -8,7 +8,7 @@ using LocalComponents;
 namespace WebApplication1
 {
     /// <summary>
-    /// Static helper class for managing XML-based account storage with encrypted passwords
+    /// Static helper class for managing XML-based account storage with hashed passwords
     /// </summary>
     public static class AccountStore
     {
@@ -57,11 +57,11 @@ namespace WebApplication1
 
                 if (existingTA == null)
                 {
-                    // Create TA account with password "Cse445!"
-                    var encryptedPassword = EncryptionUtils.Encrypt("Cse445!");
+                    // Create TA account with password "Cse445!" using proper hashing
+                    var hashedPassword = PasswordHandler.HashPassword("Cse445!");
                     var taStaff = new XElement("Staff",
                         new XElement("Username", "TA"),
-                        new XElement("PasswordHash", encryptedPassword)
+                        new XElement("PasswordHash", hashedPassword)
                     );
 
                     staffDoc.Root.Add(taStaff);
@@ -87,15 +87,20 @@ namespace WebApplication1
             try
             {
                 var staffDoc = XDocument.Load(StaffPath);
-                var encryptedPassword = EncryptionUtils.Encrypt(plainPassword);
 
-                // Find staff with matching username and password (case-insensitive username)
-                var matchingStaff = staffDoc.Descendants("Staff")
+                // Find staff with matching username (case-insensitive)
+                var staffElement = staffDoc.Descendants("Staff")
                     .FirstOrDefault(s => 
-                        string.Equals(s.Element("Username")?.Value, username, StringComparison.OrdinalIgnoreCase) &&
-                        s.Element("PasswordHash")?.Value == encryptedPassword);
+                        string.Equals(s.Element("Username")?.Value, username, StringComparison.OrdinalIgnoreCase));
 
-                return matchingStaff != null;
+                if (staffElement == null)
+                {
+                    return false;
+                }
+
+                // Get stored hash and verify password
+                var storedHash = staffElement.Element("PasswordHash")?.Value;
+                return PasswordHandler.VerifyPassword(plainPassword, storedHash);
             }
             catch (Exception)
             {
@@ -116,15 +121,20 @@ namespace WebApplication1
             try
             {
                 var membersDoc = XDocument.Load(MembersPath);
-                var encryptedPassword = EncryptionUtils.Encrypt(plainPassword);
 
-                // Find member with matching username and password (case-insensitive username)
-                var matchingMember = membersDoc.Descendants("Member")
+                // Find member with matching username (case-insensitive)
+                var memberElement = membersDoc.Descendants("Member")
                     .FirstOrDefault(m => 
-                        string.Equals(m.Element("Username")?.Value, username, StringComparison.OrdinalIgnoreCase) &&
-                        m.Element("PasswordHash")?.Value == encryptedPassword);
+                        string.Equals(m.Element("Username")?.Value, username, StringComparison.OrdinalIgnoreCase));
 
-                return matchingMember != null;
+                if (memberElement == null)
+                {
+                    return false;
+                }
+
+                // Get stored hash and verify password
+                var storedHash = memberElement.Element("PasswordHash")?.Value;
+                return PasswordHandler.VerifyPassword(plainPassword, storedHash);
             }
             catch (Exception)
             {
@@ -136,7 +146,7 @@ namespace WebApplication1
         /// Registers a new member account
         /// </summary>
         /// <param name="username">Username for new account (case-insensitive check for duplicates)</param>
-        /// <param name="plainPassword">Plain text password to encrypt and store</param>
+        /// <param name="plainPassword">Plain text password to hash and store</param>
         /// <returns>True if registration successful, false if username already exists</returns>
         public static bool RegisterMember(string username, string plainPassword)
         {
@@ -156,11 +166,11 @@ namespace WebApplication1
                     return false; // Username already exists
                 }
 
-                // Add new member with encrypted password
-                var encryptedPassword = EncryptionUtils.Encrypt(plainPassword);
+                // Add new member with hashed password
+                var hashedPassword = PasswordHandler.HashPassword(plainPassword);
                 var newMember = new XElement("Member",
                     new XElement("Username", username),
-                    new XElement("PasswordHash", encryptedPassword)
+                    new XElement("PasswordHash", hashedPassword)
                 );
 
                 membersDoc.Root.Add(newMember);
@@ -196,22 +206,29 @@ namespace WebApplication1
             try
             {
                 var membersDoc = XDocument.Load(MembersPath);
-                var encryptedOldPassword = EncryptionUtils.Encrypt(oldPlainPassword);
-                var encryptedNewPassword = EncryptionUtils.Encrypt(newPlainPassword);
 
-                // Find member with matching username and current password
+                // Find member with matching username (case-insensitive)
                 var memberElement = membersDoc.Descendants("Member")
                     .FirstOrDefault(m => 
-                        string.Equals(m.Element("Username")?.Value, username, StringComparison.OrdinalIgnoreCase) &&
-                        m.Element("PasswordHash")?.Value == encryptedOldPassword);
+                        string.Equals(m.Element("Username")?.Value, username, StringComparison.OrdinalIgnoreCase));
 
                 if (memberElement == null)
                 {
-                    return false; // Member not found or current password is incorrect
+                    return false; // Member not found
                 }
 
-                // Update password hash with new encrypted password
-                memberElement.Element("PasswordHash").Value = encryptedNewPassword;
+                // Verify old password
+                var storedHash = memberElement.Element("PasswordHash")?.Value;
+                bool isOldPasswordValid = PasswordHandler.VerifyPassword(oldPlainPassword, storedHash);
+                
+                if (!isOldPasswordValid)
+                {
+                    return false; // Current password is incorrect
+                }
+
+                // Hash new password and update
+                var newPasswordHash = PasswordHandler.HashPassword(newPlainPassword);
+                memberElement.Element("PasswordHash").Value = newPasswordHash;
                 membersDoc.Save(MembersPath);
 
                 return true;
@@ -244,22 +261,29 @@ namespace WebApplication1
             try
             {
                 var staffDoc = XDocument.Load(StaffPath);
-                var encryptedOldPassword = EncryptionUtils.Encrypt(oldPlainPassword);
-                var encryptedNewPassword = EncryptionUtils.Encrypt(newPlainPassword);
 
-                // Find staff with matching username and current password
+                // Find staff with matching username (case-insensitive)
                 var staffElement = staffDoc.Descendants("Staff")
                     .FirstOrDefault(s => 
-                        string.Equals(s.Element("Username")?.Value, username, StringComparison.OrdinalIgnoreCase) &&
-                        s.Element("PasswordHash")?.Value == encryptedOldPassword);
+                        string.Equals(s.Element("Username")?.Value, username, StringComparison.OrdinalIgnoreCase));
 
                 if (staffElement == null)
                 {
-                    return false; // Staff not found or current password is incorrect
+                    return false; // Staff not found
                 }
 
-                // Update password hash with new encrypted password
-                staffElement.Element("PasswordHash").Value = encryptedNewPassword;
+                // Verify old password
+                var storedHash = staffElement.Element("PasswordHash")?.Value;
+                bool isOldPasswordValid = PasswordHandler.VerifyPassword(oldPlainPassword, storedHash);
+                
+                if (!isOldPasswordValid)
+                {
+                    return false; // Current password is incorrect
+                }
+
+                // Hash new password and update
+                var newPasswordHash = PasswordHandler.HashPassword(newPlainPassword);
+                staffElement.Element("PasswordHash").Value = newPasswordHash;
                 staffDoc.Save(StaffPath);
 
                 return true;
