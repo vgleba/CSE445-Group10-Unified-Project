@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Members>
+  <Member>
+    <Username>member1</Username>
+    <PasswordHash>d293MTIz</PasswordHash>
+  </Member>
+  <Member>
+    <Username>member2</Username>
+    <PasswordHash>bWVtYmVyMg==</PasswordHash>
+  </Member>
+  <Member>
+    <Username>member12</Username>
+    <PasswordHash>bWVtYmVyMTI=</PasswordHash>
+  </Member>
+</Members>
