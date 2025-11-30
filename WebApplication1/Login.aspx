@@ -15,6 +15,15 @@
     </div>
     <div>
         <asp:Button runat="server" ID="btnLogin" Text="Login" OnClick="btnLogin_Click" />
+        <asp:Button runat="server" ID="btnBackToDefault" Text="Back to Default page" OnClick="btnBackToDefault_Click" />
+    </div>
+    <div>
+        <asp:Label runat="server" ID="lblError" ForeColor="Red" />
+    </div>
+    <div>
+        <asp:HyperLink ID="hlRegister" runat="server"
+                      NavigateUrl="~/Register.aspx"
+                      Text="New user? Register as a member" />
     </div>
 </form>
 </body>

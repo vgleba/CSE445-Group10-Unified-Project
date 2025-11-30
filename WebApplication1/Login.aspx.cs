@@ -7,11 +7,37 @@ namespace WebApplication1
     {
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            // For A5: accept any non-empty creds; real role/cred handling comes in A6.
-            if (!string.IsNullOrWhiteSpace(txtUser.Text) && !string.IsNullOrWhiteSpace(txtPass.Text))
+            lblError.Text = "";
+
+            string username = txtUser.Text.Trim();
+            string password = txtPass.Text;
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                FormsAuthentication.RedirectFromLoginPage(txtUser.Text.Trim(), false);
+                lblError.Text = "Username and password are required.";
+                return;
             }
+
+            if (AccountStore.ValidateStaff(username, password))
+            {
+                Session["IsStaff"] = true;
+                FormsAuthentication.RedirectFromLoginPage(username, false);
+                return;
+            }
+
+            if (AccountStore.ValidateMember(username, password))
+            {
+                Session["IsStaff"] = false;
+                FormsAuthentication.RedirectFromLoginPage(username, false);
+                return;
+            }
+
+            lblError.Text = "Invalid username or password.";
+        }
+
+        protected void btnBackToDefault_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx");
         }
     }
 }

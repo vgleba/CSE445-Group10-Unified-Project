@@ -1,6 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebApplication1.Default" %>
-<%@ Register Src="PlayerDeckView.ascx" TagPrefix="uc" TagName="PlayerDeckView" %>
-<%@ Register Src="PlayerMoneyView.ascx" TagPrefix="uc" TagName="PlayerMoneyView" %>
 
 <!DOCTYPE html>
 <html>
@@ -26,6 +24,11 @@
     <section>
         <asp:Button runat="server" ID="btnMember" Text="Member" OnClick="btnMember_Click" />
         <asp:Button runat="server" ID="btnStaff" Text="Staff" OnClick="btnStaff_Click" />
+        <div style="margin-top: 10px;">
+            <asp:HyperLink ID="hlRegisterFromDefault" runat="server"
+                          NavigateUrl="~/Register.aspx"
+                          Text="New user? Register as a member" />
+        </div>
     </section>
 
    <h2>Service Directory</h2>
@@ -80,48 +83,6 @@
             <pre><asp:Literal runat="server" ID="litWordFilterResult" /></pre>
         </div>
 
-        <!-- Catalog Add -->
-        <div id="tryitCatalogAdd" class="tryit-section">
-            <h3>Catalog Add (REST)</h3>
-            <div class="input-group">
-                <label>Category:</label>
-                <asp:TextBox runat="server" ID="txtCategoryAdd" Width="200" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCategoryAdd" 
-                    ErrorMessage="Category is required" ValidationGroup="CatalogAdd" 
-                    CssClass="validation-error" Display="Dynamic" />
-            </div>
-            <div class="input-group">
-                <label>Item:</label>
-                <asp:TextBox runat="server" ID="txtItemAdd" Width="200" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtItemAdd" 
-                    ErrorMessage="Item is required" ValidationGroup="CatalogAdd" 
-                    CssClass="validation-error" Display="Dynamic" />
-            </div>
-            <asp:Button runat="server" ID="btnCatalogAdd" Text="Add" OnClick="btnCatalogAdd_Click" ValidationGroup="CatalogAdd" />
-            <pre><asp:Literal runat="server" ID="litCatalogAddResult" /></pre>
-        </div>
-
-        <!-- Catalog Delete -->
-        <div id="tryitCatalogDelete" class="tryit-section">
-            <h3>Catalog Delete (REST)</h3>
-            <div class="input-group">
-                <label>Category:</label>
-                <asp:TextBox runat="server" ID="txtCategoryDel" Width="200" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCategoryDel" 
-                    ErrorMessage="Category is required" ValidationGroup="CatalogDelete" 
-                    CssClass="validation-error" Display="Dynamic" />
-            </div>
-            <div class="input-group">
-                <label>Item:</label>
-                <asp:TextBox runat="server" ID="txtItemDel" Width="200" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtItemDel" 
-                    ErrorMessage="Item is required" ValidationGroup="CatalogDelete" 
-                    CssClass="validation-error" Display="Dynamic" />
-            </div>
-            <asp:Button runat="server" ID="btnCatalogDelete" Text="Delete" OnClick="btnCatalogDelete_Click" ValidationGroup="CatalogDelete" />
-            <pre><asp:Literal runat="server" ID="litCatalogDeleteResult" /></pre>
-        </div>
-
         <!-- Catalog List All -->
         <div id="tryitCatalogList" class="tryit-section">
             <h3>Catalog List All (REST)</h3>
@@ -130,62 +91,6 @@
             </div>
             <asp:Button runat="server" ID="btnCatalogList" Text="List All" OnClick="btnCatalogList_Click" />
             <pre><asp:Literal runat="server" ID="litCatalogListResult" /></pre>
-        </div>
-
-        <!-- Catalog Get Item -->
-        <div id="tryitCatalogGet" class="tryit-section">
-            <h3>Catalog Get Item (REST)</h3>
-            <div class="input-group">
-                <label>Category:</label>
-                <asp:TextBox runat="server" ID="txtCategoryGet" Width="200" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCategoryGet" 
-                    ErrorMessage="Category is required" ValidationGroup="CatalogGet" 
-                    CssClass="validation-error" Display="Dynamic" />
-            </div>
-            <div class="input-group">
-                <label>Item:</label>
-                <asp:TextBox runat="server" ID="txtItemGet" Width="200" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtItemGet" 
-                    ErrorMessage="Item is required" ValidationGroup="CatalogGet" 
-                    CssClass="validation-error" Display="Dynamic" />
-            </div>
-            <asp:Button runat="server" ID="btnCatalogGet" Text="Get Item" OnClick="btnCatalogGet_Click" ValidationGroup="CatalogGet" />
-            <asp:Button runat="server" ID="btnAddToCart" Text="Add to Cart" OnClick="btnAddToCart_Click" 
-                style="margin-left: 10px;" Visible="false" />
-            <pre><asp:Literal runat="server" ID="litCatalogGetResult" /></pre>
-        </div>
-
-        <!-- Cart -->
-        <div id="tryitCart" class="tryit-section">
-            <h3>Cart (REST)</h3>
-            <div class="input-group">
-                <label>Click to refresh and view cart contents:</label>
-            </div>
-            <asp:Button runat="server" ID="btnCartRefresh" Text="Refresh Cart" OnClick="btnCartRefresh_Click" />
-            <asp:Button runat="server" ID="btnCartCheckout" Text="Checkout" OnClick="btnCartCheckout_Click" 
-                style="margin-left: 10px;" />
-            <pre><asp:Literal runat="server" ID="litCartResult" /></pre>
-            
-            <!-- Address Validation Panel -->
-            <asp:Panel runat="server" ID="pnlAddress" Visible="false" style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; background-color: #f9f9f9;">
-                <h3>Shipping Address</h3>
-                <div class="input-group">
-                    <asp:Label runat="server" Text="State:" AssociatedControlID="txtState" />
-                    <asp:TextBox runat="server" ID="txtState" Width="200" />
-                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtState" 
-                        ErrorMessage="State is required" ValidationGroup="Address" 
-                        CssClass="validation-error" Display="Dynamic" />
-                </div>
-                <div class="input-group">
-                    <asp:Label runat="server" Text="ZIP Code:" AssociatedControlID="txtZip" />
-                    <asp:TextBox runat="server" ID="txtZip" Width="200" />
-                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtZip" 
-                        ErrorMessage="ZIP Code is required" ValidationGroup="Address" 
-                        CssClass="validation-error" Display="Dynamic" />
-                </div>
-                <asp:Button runat="server" ID="btnProceed" Text="Proceed" OnClick="btnProceed_Click" ValidationGroup="Address" />
-                <asp:Label runat="server" ID="lblAddressError" ForeColor="Red" style="display: block; margin-top: 10px;" />
-            </asp:Panel>
         </div>
 
         <!-- DLL Encryption -->
@@ -214,82 +119,6 @@
             </div>
             <asp:Button runat="server" ID="btnDllDecrypt" Text="Decrypt (DLL)" OnClick="btnDllDecrypt_Click" ValidationGroup="DllDecrypt" />
             <pre><asp:Literal runat="server" ID="litDllDecryptResult" /></pre>
-        </div>
-
-        <!-- WCF: NewGame -->
-        <div id="tryitPokerNewGame" class="tryit-section">
-            <h3>PockerEngine New Game (REST)</h3>
-            <asp:Button runat="server" ID="btnNewGame" Text="New Game" OnClick="btnNewGame_Click" />
-            <pre><asp:Literal runat="server" ID="litPoker" /></pre>
-        </div>
-
-        <!-- REST: Apply poker action -->
-        <div id="tryitPokerApplyAction" class="tryit-section">
-            <h3>PockerEngine apply action (REST)</h3>
-            <div class="input-group">
-                <label>Game Id:</label>
-                <asp:TextBox runat="server" ID="txtPokerGameId" Width="400" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPokerGameId"
-                    ErrorMessage="Game Id is required" ValidationGroup="PokerAction"
-                    CssClass="validation-error" Display="Dynamic" />
-            </div>
-            <div class="input-group">
-                <label>Action Type (Raise/Call/Fold):</label>
-                <asp:TextBox runat="server" ID="txtPokerActionType" Width="200" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPokerActionType"
-                    ErrorMessage="Action type is required" ValidationGroup="PokerAction"
-                    CssClass="validation-error" Display="Dynamic" />
-            </div>
-            <div class="input-group">
-                <label>Amount (0 for fold/check):</label>
-                <asp:TextBox runat="server" ID="txtPokerAmount" Width="200" />
-            </div>
-            <asp:Button runat="server" ID="btnPokerApplyAction" Text="Apply Action" OnClick="btnPokerApplyAction_Click" ValidationGroup="PokerAction" />
-            <pre><asp:Literal runat="server" ID="litPokerApplyActionResult" /></pre>
-        </div>
-
-        <!-- REST: Apply poker action -->
-        <div id="tryitPokerBot" class="tryit-section">
-            <h3>PockerEngine Bot (WCF)</h3>
-            <div class="input-group">
-                <label>Game Id:</label>
-                <asp:TextBox runat="server" ID="txtPokerBotGameId" Width="400" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPokerBotGameId"
-                    ErrorMessage="Game Id is required" ValidationGroup="PokerBot"
-                    CssClass="validation-error" Display="Dynamic" />
-            </div>
-            <asp:Button runat="server" ID="btnPokerBot" Text="Ask Bot" OnClick="btnPokerBot_Click" ValidationGroup="PokerBot" />
-            <pre><asp:Literal runat="server" ID="litPokerBotResult" /></pre>
-        </div>
-
-        <!-- Poker: Current Player View -->
-        <div id="pokerDeckView" class="tryit-section">
-            <h3>Current Player Deck View</h3>
-            <div class="input-group">
-                <label>Game Id:</label>
-                <asp:TextBox runat="server" ID="txtPokerVisualizeGameId" Width="400" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPokerVisualizeGameId"
-                    ErrorMessage="Game Id is required" ValidationGroup="PokerVisualize"
-                    CssClass="validation-error" Display="Dynamic" />
-            </div>
-            <asp:Button runat="server" ID="btnPokerDeckVisualize" Text="Visualize" OnClick="btnPokerDeckVisualize_Click" ValidationGroup="PokerVisualize" />
-            <uc:PlayerDeckView runat="server" ID="playerDeckView" Visible="false" />
-        </div>
-
-        <!-- Poker: Players Money View -->
-        <div id="pokerPlayersMoneyView" class="tryit-section">
-            <h3>Players Money View</h3>
-            <div class="input-group">
-                <label>Game Id:</label>
-                <asp:TextBox runat="server" ID="txtPokerMoneyGameId" Width="400" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPokerMoneyGameId"
-                    ErrorMessage="Game Id is required" ValidationGroup="PokerMoney"
-                    CssClass="validation-error" Display="Dynamic" />
-            </div>
-            <asp:Button runat="server" ID="btnPokerMoneyVisualize" Text="Visualize" OnClick="btnPokerMoneyVisualize_Click" ValidationGroup="PokerMoney" />
-            <asp:Literal runat="server" ID="litPokerMoneyStatus" />
-            <asp:PlaceHolder runat="server" ID="phPlayersMoney" />
-
         </div>
         
         <!-- DLL Password hash -->

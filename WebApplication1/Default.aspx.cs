@@ -1,15 +1,11 @@
 ﻿using LocalComponents;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.UI;
 using WebApplication1.ServiceReference1;
-using WebApplication1.PokerBotServiceReference;
 
 namespace WebApplication1
 {
@@ -71,28 +67,12 @@ namespace WebApplication1
 
             table.Rows.Add(
                 "Volodymyr Gleba", 
-                "WCF Service",
-                "Top10ContentWords",
-                "string inputOrUrl",
-                "List<string> top10Words",
-                "Returns the top 10 content words after stopword removal and stemming.",
-                "TryIt/Top10_TryIt.aspx");
-            table.Rows.Add(
-                "Volodymyr Gleba", 
                 "REST Service",
                 "ThreatNLP",
                 "string text",
                 "ThreatEvent[]",
                 "Rule-based extractor for threat type, direction, location and timestamp.",
                 "TryIt/ThreatNLP_TryIt.aspx");
-            table.Rows.Add(
-                "Volodymyr Gleba", 
-                "REST Service",
-                "GeoResolve",
-                "string locationText",
-                "GeoPoint + radius",
-                "Maps place mentions & directions to coordinates using gazetteer.",
-                "TryIt/GeoResolve_TryIt.aspx");
             table.Rows.Add(
                 "Volodymyr Gleba", 
                 "REST Service",
@@ -139,56 +119,11 @@ namespace WebApplication1
             table.Rows.Add(
                 "Vladyslav Saniuk",
                 "REST",
-                "catalog add",
-                "category: string, item: string",
-                "string",
-                "Adds key/value to JSON catalog",
-                "#tryitCatalogAdd"
-            );
-            table.Rows.Add(
-                "Vladyslav Saniuk",
-                "REST",
-                "catalog delete",
-                "category: string, item: string",
-                "string",
-                "Deletes key/value from JSON catalog",
-                "#tryitCatalogDelete"
-            );
-            table.Rows.Add(
-                "Vladyslav Saniuk",
-                "REST",
                 "catalog list all",
                 "none",
                 "string (all catalog items)",
                 "Lists all category/item pairs in JSON catalog",
                 "#tryitCatalogList"
-            );
-            table.Rows.Add(
-                "Vladyslav Saniuk",
-                "REST",
-                "catalog get item",
-                "category: string, item: string",
-                "string (confirmation if found)",
-                "Gets a specific category/item pair from JSON catalog",
-                "#tryitCatalogGet"
-            );
-            table.Rows.Add(
-                "Vladyslav Saniuk",
-                "REST",
-                "cart refresh",
-                "none",
-                "string (cart items)",
-                "Displays all items currently in the shopping cart",
-                "#tryitCart"
-            );
-            table.Rows.Add(
-                "Vladyslav Saniuk",
-                "REST",
-                "cart checkout",
-                "none",
-                "string (thank you message)",
-                "Processes checkout, shows thank you message, validate shipping address via 3rd party API and removes items from catalog",
-                "#tryitCart"
             );
             table.Rows.Add(
                 "Vladyslav Saniuk",
@@ -210,51 +145,6 @@ namespace WebApplication1
             );
             table.Rows.Add(
                 "Dmytro Ohorodiichuk",
-                "REST",
-                "Poker new game",
-                "none",
-                "string (game JSON)",
-                "Creates a new poker game in the engine",
-                "#tryitPokerNewGame"
-            );
-            table.Rows.Add(
-                "Dmytro Ohorodiichuk",
-                "REST",
-                "Poker apply action",
-                "gameId: guid, actionType: string, amount: int",
-                "string (game JSON)",
-                "Submits a player action to the poker engine",
-                "#tryitPokerApplyAction"
-            );
-            table.Rows.Add(
-                "Dmytro Ohorodiichuk",
-                "WSDL (WCF)",
-                "Poker bot decision",
-                "gameId: guid",
-                "BotDecisionResponse",
-                "Calls WCF bot service to suggest the next poker action",
-                "#tryitPokerBot"
-            );
-            table.Rows.Add(
-                "Dmytro Ohorodiichuk",
-                "User control",
-                "Poker game state viewer",
-                "gameId: guid",
-                "renders PlayerDeckView",
-                "Loads game JSON from REST API and renders it via PlayerDeckView user control",
-                "#pokerDeckView"
-            );
-            table.Rows.Add(
-                "Dmytro Ohorodiichuk",
-                "User control",
-                "Poker players money view",
-                "gameId: guid",
-                "renders PlayerMoneyView list",
-                "Loads game JSON from REST API and renders PlayerMoneyView controls for each player",
-                "#pokerPlayersMoneyView"
-            );
-            table.Rows.Add(
-                "Dmytro Ohorodiichuk",
                 "DLL",
                 "Password hash",
                 "string input",
@@ -272,10 +162,8 @@ namespace WebApplication1
                 "#tryitDllVerify"
            );
 
-
             gvDirectory.DataSource = table;
             gvDirectory.DataBind();
-        
         }
 
         // TryIt handlers
@@ -322,155 +210,11 @@ namespace WebApplication1
             litWordFilterResult.Text = HttpUtility.HtmlEncode(DoPost(uri, ""));
         }
 
-        protected void btnCatalogAdd_Click(object sender, EventArgs e)
-        {
-            var baseUri = GetBaseUri();
-            var url = baseUri + $"api/catalog.ashx?category={HttpUtility.UrlEncode(txtCategoryAdd.Text)}&item={HttpUtility.UrlEncode(txtItemAdd.Text)}";
-            litCatalogAddResult.Text = HttpUtility.HtmlEncode(DoPost(url, ""));
-        }
-
-        protected void btnCatalogDelete_Click(object sender, EventArgs e)
-        {
-            var baseUri = GetBaseUri();
-            var url = baseUri + $"api/catalog.ashx?category={HttpUtility.UrlEncode(txtCategoryDel.Text)}&item={HttpUtility.UrlEncode(txtItemDel.Text)}";
-            litCatalogDeleteResult.Text = HttpUtility.HtmlEncode(DoDelete(url));
-        }
-
         protected void btnCatalogList_Click(object sender, EventArgs e)
         {
             var baseUri = GetBaseUri();
             var url = baseUri + "api/catalog.ashx";
             litCatalogListResult.Text = HttpUtility.HtmlEncode(DoGet(url));
-        }
-
-        protected void btnCatalogGet_Click(object sender, EventArgs e)
-        {
-            var baseUri = GetBaseUri();
-            var url = baseUri + $"api/catalog.ashx?action=getitem&category={HttpUtility.UrlEncode(txtCategoryGet.Text)}&item={HttpUtility.UrlEncode(txtItemGet.Text)}";
-            var result = DoGet(url);
-            litCatalogGetResult.Text = HttpUtility.HtmlEncode(result);
-            
-            // Show the "Add to Cart" button only if the item was found
-            if (result.StartsWith("Found:"))
-            {
-                btnAddToCart.Visible = true;
-                // Store the found item data in ViewState for the Add to Cart operation
-                ViewState["FoundCategory"] = txtCategoryGet.Text;
-                ViewState["FoundItem"] = txtItemGet.Text;
-            }
-            else
-            {
-                btnAddToCart.Visible = false;
-                ViewState["FoundCategory"] = null;
-                ViewState["FoundItem"] = null;
-            }
-        }
-
-        protected void btnAddToCart_Click(object sender, EventArgs e)
-        {
-            var category = ViewState["FoundCategory"] as string;
-            var item = ViewState["FoundItem"] as string;
-            
-            if (!string.IsNullOrEmpty(category) && !string.IsNullOrEmpty(item))
-            {
-                var baseUri = GetBaseUri();
-                var url = baseUri + $"api/cart.ashx?action=add&category={HttpUtility.UrlEncode(category)}&item={HttpUtility.UrlEncode(item)}";
-                var result = DoPost(url, "");
-                
-                // Show the result and hide the Add to Cart button
-                litCatalogGetResult.Text += Environment.NewLine + Environment.NewLine + HttpUtility.HtmlEncode(result);
-                btnAddToCart.Visible = false;
-                
-                // Clear the ViewState
-                ViewState["FoundCategory"] = null;
-                ViewState["FoundItem"] = null;
-            }
-            else
-            {
-                litCatalogGetResult.Text += Environment.NewLine + Environment.NewLine + "Error: No item data available to add to cart.";
-                btnAddToCart.Visible = false;
-            }
-        }
-
-        protected void btnCartRefresh_Click(object sender, EventArgs e)
-        {
-            var baseUri = GetBaseUri();
-            var url = baseUri + "api/cart.ashx";
-            litCartResult.Text = HttpUtility.HtmlEncode(DoGet(url));
-        }
-
-        protected void btnCartCheckout_Click(object sender, EventArgs e)
-        {
-            var baseUri = GetBaseUri();
-            var url = baseUri + "api/cart.ashx?action=checkout";
-            var result = DoPost(url, "");
-            litCartResult.Text = HttpUtility.HtmlEncode(result);
-            
-            // Show the address validation panel after displaying cart contents
-            if (result.Contains("Thank you for shopping with us!"))
-            {
-                pnlAddress.Visible = true;
-                lblAddressError.Text = ""; // Clear any previous error
-            }
-        }
-
-        protected void btnProceed_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Read user inputs
-                string userState = txtState.Text?.Trim();
-                string userZip = txtZip.Text?.Trim();
-                
-                if (string.IsNullOrEmpty(userState) || string.IsNullOrEmpty(userZip))
-                {
-                    lblAddressError.Text = "Please provide both State and ZIP code.";
-                    return;
-                }
-
-                // Call zippopotam.us API to validate ZIP code and state
-                string apiUrl = $"http://api.zippopotam.us/us/{userZip}";
-                
-                using (var wc = new WebClient())
-                {
-                    wc.Encoding = Encoding.UTF8;
-                    string jsonResponse = wc.DownloadString(apiUrl);
-                    
-                    // Parse JSON response using basic string parsing (since we're avoiding external JSON libraries)
-                    // Look for the state information in the JSON response
-                    string apiState = ExtractStateFromZipResponse(jsonResponse);
-                    
-                    if (string.IsNullOrEmpty(apiState))
-                    {
-                        lblAddressError.Text = "Invalid ZIP code. Please provide a valid ZIP code.";
-                        return;
-                    }
-                    
-                    // Compare states (case-insensitive)
-                    if (string.Equals(userState, apiState, StringComparison.OrdinalIgnoreCase) ||
-                        IsStateAbbreviationMatch(userState, apiState))
-                    {
-                        // Valid address - show success and hide panel
-                        litCartResult.Text += "\n\nOrder processed successfully! Your items will be shipped to " + 
-                                            userState + ", " + userZip + ".";
-                        pnlAddress.Visible = false;
-                    }
-                    else
-                    {
-                        lblAddressError.Text = "Invalid address. The provided state does not match the ZIP code. Please provide a valid State and ZIP code.";
-                    }
-                }
-            }
-            catch (WebException webEx)
-            {
-                // Handle API errors (404, network issues, etc.)
-                lblAddressError.Text = $"Invalid address. Please provide a valid State and ZIP code. (Error: {webEx.Message})";
-            }
-            catch (Exception ex)
-            {
-                // Handle other errors
-                lblAddressError.Text = $"Error validating address: {ex.Message}. Please try again.";
-            }
         }
 
         protected void btnDllEncrypt_Click(object sender, EventArgs e)
@@ -498,226 +242,6 @@ namespace WebApplication1
             catch (Exception ex)
             {
                 litDllDecryptResult.Text = HttpUtility.HtmlEncode("DLL decryption error: " + ex.Message);
-            }
-        }
-
-        // Helper method to extract state from ZIP API response
-        private string ExtractStateFromZipResponse(string jsonResponse)
-        {
-            try
-            {
-                // Simple JSON parsing to extract state from zippopotam.us response
-                // Look for "places":[{"place name":"...","state":"...","state abbreviation":"..."}]
-                
-                // Find the state field
-                int stateIndex = jsonResponse.IndexOf("\"state\":");
-                if (stateIndex > 0)
-                {
-                    int startQuote = jsonResponse.IndexOf("\"", stateIndex + 8);
-                    int endQuote = jsonResponse.IndexOf("\"", startQuote + 1);
-                    if (startQuote > 0 && endQuote > startQuote)
-                    {
-                        return jsonResponse.Substring(startQuote + 1, endQuote - startQuote - 1);
-                    }
-                }
-                
-                return null;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        // Helper method to check if user provided state abbreviation matches full state name
-        private bool IsStateAbbreviationMatch(string userInput, string fullStateName)
-        {
-            // Simple mapping for common states - in a real app you'd have a complete mapping
-            var stateAbbreviations = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-            {
-                {"AL", "Alabama"}, {"AK", "Alaska"}, {"AZ", "Arizona"}, {"AR", "Arkansas"}, {"CA", "California"},
-                {"CO", "Colorado"}, {"CT", "Connecticut"}, {"DE", "Delaware"}, {"FL", "Florida"}, {"GA", "Georgia"},
-                {"HI", "Hawaii"}, {"ID", "Idaho"}, {"IL", "Illinois"}, {"IN", "Indiana"}, {"IA", "Iowa"},
-                {"KS", "Kansas"}, {"KY", "Kentucky"}, {"LA", "Louisiana"}, {"ME", "Maine"}, {"MD", "Maryland"},
-                {"MA", "Massachusetts"}, {"MI", "Michigan"}, {"MN", "Minnesota"}, {"MS", "Mississippi"}, {"MO", "Missouri"},
-                {"MT", "Montana"}, {"NE", "Nebraska"}, {"NV", "Nevada"}, {"NH", "New Hampshire"}, {"NJ", "New Jersey"},
-                {"NM", "New Mexico"}, {"NY", "New York"}, {"NC", "North Carolina"}, {"ND", "North Dakota"}, {"OH", "Ohio"},
-                {"OK", "Oklahoma"}, {"OR", "Oregon"}, {"PA", "Pennsylvania"}, {"RI", "Rhode Island"}, {"SC", "South Carolina"},
-                {"SD", "South Dakota"}, {"TN", "Tennessee"}, {"TX", "Texas"}, {"UT", "Utah"}, {"VT", "Vermont"},
-                {"VA", "Virginia"}, {"WA", "Washington"}, {"WV", "West Virginia"}, {"WI", "Wisconsin"}, {"WY", "Wyoming"}
-            };
-
-            // Check if user input is an abbreviation that matches the full state name
-            if (stateAbbreviations.ContainsKey(userInput) && 
-                string.Equals(stateAbbreviations[userInput], fullStateName, StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-            
-            // Check if full state name matches abbreviation lookup (reverse check)
-            foreach (var kvp in stateAbbreviations)
-            {
-                if (string.Equals(kvp.Value, fullStateName, StringComparison.OrdinalIgnoreCase) &&
-                    string.Equals(kvp.Key, userInput, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-            }
-            
-            return false;
-        }
-
-        private string GetBaseUri()
-        {
-            var req = HttpContext.Current.Request;
-            var appPath = req.ApplicationPath;
-            if (!appPath.EndsWith("/")) appPath += "/";
-            return $"{req.Url.Scheme}://{req.Url.Authority}{appPath}";
-        }
-
-        private string DoPost(string url, string body)
-        {
-            using (var wc = new WebClient())
-            {
-                wc.Encoding = Encoding.UTF8;
-                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                try { return wc.UploadString(url, "POST", body ?? string.Empty); }
-                catch (WebException ex) { return ReadError(ex); }
-            }
-        }
-
-        private string DoGet(string url)
-        {
-            using (var wc = new WebClient())
-            {
-                wc.Encoding = Encoding.UTF8;
-                try { return wc.DownloadString(url); }
-                catch (WebException ex) { return ReadError(ex); }
-            }
-        }
-
-        private string DoDelete(string url)
-        {
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "DELETE";
-            try
-            {
-                using (var resp = (HttpWebResponse)request.GetResponse())
-                using (var stream = resp.GetResponseStream())
-                using (var reader = new System.IO.StreamReader(stream))
-                    return reader.ReadToEnd();
-            }
-            catch (WebException ex) { return ReadError(ex); }
-        }
-
-        private string ReadError(WebException ex)
-        {
-            try
-            {
-                using (var resp = (HttpWebResponse)ex.Response)
-                using (var stream = resp.GetResponseStream())
-                using (var reader = new System.IO.StreamReader(stream))
-                    return reader.ReadToEnd();
-            }
-            catch { return ex.Message; }
-        }
-
-
-
-        private BotDecisionResponse RequestPokerBot(string gameStateJson)
-        {
-            BotRequest request = new BotRequest { GameStateJson = gameStateJson };
-            BotDecisionResponse response = new PokerBotServiceClient().GetBotDecision(request);
-
-            return response;
-        }
-
-        private string DoPut(string url, string body)
-        {
-            using (WebClient wc = new WebClient())
-            {
-                wc.Encoding = Encoding.UTF8;
-                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                try { return wc.UploadString(url, "PUT", body ?? string.Empty); }
-                catch (WebException ex) { return ReadError(ex); }
-            }
-        }
-
-        protected void btnNewGame_Click(object sender, EventArgs e)
-        {
-            string result = DoPut("http://webstrar10.fulton.asu.edu/page1/api/games/", "");
-            litPoker.Text = JToken.Parse(result).ToString(Newtonsoft.Json.Formatting.Indented).Replace("\r\n", "<br/>");
-        }
-
-        protected void btnPokerApplyAction_Click(object sender, EventArgs e)
-        {
-            if (!Guid.TryParse(txtPokerGameId.Text, out Guid gameId))
-            {
-                litPokerApplyActionResult.Text = "Invalid game id.";
-                return;
-            }
-
-            int amount = 0;
-            if (!string.IsNullOrWhiteSpace(txtPokerAmount.Text) && !int.TryParse(txtPokerAmount.Text, out amount))
-            {
-                litPokerApplyActionResult.Text = "Amount must be a number.";
-                return;
-            }
-
-            var request = new
-            {
-                GameId = gameId,
-                ActionType = txtPokerActionType.Text,
-                Amount = amount
-            };
-
-            string response = DoPost("http://webstrar10.fulton.asu.edu/page1/api/games/apply", JsonConvert.SerializeObject(request));
-
-            try
-            {
-                litPokerApplyActionResult.Text = JToken.Parse(response).ToString(Newtonsoft.Json.Formatting.Indented).Replace("\r\n", "<br/>");
-            }
-            catch (JsonReaderException)
-            {
-                litPokerApplyActionResult.Text = HttpUtility.HtmlEncode(response);
-            }
-        }
-
-        protected void btnPokerBot_Click(object sender, EventArgs e)
-        {
-            if (!Guid.TryParse(txtPokerBotGameId.Text, out Guid gameId))
-            {
-                litPokerBotResult.Text = "Invalid game id.";
-                return;
-            }
-
-            string gameState = DoGet($"http://webstrar10.fulton.asu.edu/page1/api/games//{gameId}");
-
-            if (string.IsNullOrWhiteSpace(gameState))
-            {
-                litPokerBotResult.Text = "Could not load game state.";
-                return;
-            }
-
-            try
-            {
-                BotDecisionResponse botResponse = RequestPokerBot(gameState);
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine($"Action: {botResponse.ActionType} (Amount: {botResponse.Amount})");
-                sb.AppendLine($"Narration: {botResponse.Description}");
-
-                if (!string.IsNullOrWhiteSpace(botResponse.RawModelResponse))
-                {
-                    sb.AppendLine();
-                    sb.AppendLine("Model response:");
-                    sb.AppendLine(botResponse.RawModelResponse);
-                }
-
-                litPokerBotResult.Text = HttpUtility.HtmlEncode(sb.ToString());
-            }
-            catch (Exception ex)
-            {
-                litPokerBotResult.Text = HttpUtility.HtmlEncode("Error calling PokerBot service: " + ex.Message);
             }
         }
 
@@ -750,78 +274,45 @@ namespace WebApplication1
             }
         }
 
-        protected void btnPokerDeckVisualize_Click(object sender, EventArgs e)
+        private string GetBaseUri()
         {
-            if (!Guid.TryParse(txtPokerVisualizeGameId.Text, out Guid gameId))
-            {
-                playerDeckView.Visible = true;
-                playerDeckView.ShowErrorMessage("Invalid game id.");
-                return;
-            }
-
-            string gameState = DoGet($"http://webstrar10.fulton.asu.edu/page1/api/games/{gameId}");
-
-            playerDeckView.Visible = true;
-
-            if (string.IsNullOrWhiteSpace(gameState))
-            {
-                playerDeckView.ShowErrorMessage("Could not load game state.");
-                return;
-            }
-
-            playerDeckView.RenderFromJson(gameState);
+            var req = HttpContext.Current.Request;
+            var appPath = req.ApplicationPath;
+            if (!appPath.EndsWith("/")) appPath += "/";
+            return $"{req.Url.Scheme}://{req.Url.Authority}{appPath}";
         }
 
-        protected void btnPokerMoneyVisualize_Click(object sender, EventArgs e)
+        private string DoPost(string url, string body)
         {
-            phPlayersMoney.Controls.Clear();
-            litPokerMoneyStatus.Text = string.Empty;
-
-            if (!Guid.TryParse(txtPokerMoneyGameId.Text, out Guid gameId))
+            using (var wc = new WebClient())
             {
-                litPokerMoneyStatus.Text = "Invalid game id.";
-                return;
+                wc.Encoding = Encoding.UTF8;
+                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                try { return wc.UploadString(url, "POST", body ?? string.Empty); }
+                catch (WebException ex) { return ReadError(ex); }
             }
+        }
 
-            string gameState = DoGet($"http://webstrar10.fulton.asu.edu/page1/api/games/{gameId}");
-
-            if (string.IsNullOrWhiteSpace(gameState))
+        private string DoGet(string url)
+        {
+            using (var wc = new WebClient())
             {
-                litPokerMoneyStatus.Text = "Could not load game state.";
-                return;
+                wc.Encoding = Encoding.UTF8;
+                try { return wc.DownloadString(url); }
+                catch (WebException ex) { return ReadError(ex); }
             }
+        }
 
+        private string ReadError(WebException ex)
+        {
             try
             {
-                JObject game = JObject.Parse(gameState);
-                JArray players = (JArray)game["Players"];
-
-                if (players == null || players.Count == 0)
-                {
-                    litPokerMoneyStatus.Text = "No players found for this game.";
-                    return;
-                }
-
-                foreach (JToken player in players)
-                {
-                    string playerId = player.Value<string>("PlayerId");
-                    int stack = player.Value<int?>("Stack") ?? 0;
-                    int currentBet = player.Value<int?>("CurrentBet") ?? 0;
-                    bool folded = player.Value<bool?>("Folded") ?? false;
-
-                    PlayerMoneyView moneyView = (PlayerMoneyView)LoadControl("~/PlayerMoneyView.ascx");
-                    moneyView.BindPlayer(Guid.Parse(playerId), stack, currentBet, folded);
-                    phPlayersMoney.Controls.Add(moneyView);
-                }
+                using (var resp = (HttpWebResponse)ex.Response)
+                using (var stream = resp.GetResponseStream())
+                using (var reader = new System.IO.StreamReader(stream))
+                    return reader.ReadToEnd();
             }
-            catch (JsonReaderException)
-            {
-                litPokerMoneyStatus.Text = HttpUtility.HtmlEncode(gameState);
-            }
-            catch (Exception ex)
-            {
-                litPokerMoneyStatus.Text = HttpUtility.HtmlEncode("Error loading game: " + ex.Message);
-            }
+            catch { return ex.Message; }
         }
     }
 }
