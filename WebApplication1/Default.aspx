@@ -24,11 +24,6 @@
 
     <!-- Member / Staff -->
     <section>
-        <div style="margin-bottom: 10px;">
-            <asp:HyperLink ID="hlLogin" runat="server"
-                          NavigateUrl="~/Login.aspx"
-                          Text="Login" />
-        </div>
         <asp:Button runat="server" ID="btnMember" Text="Member" OnClick="btnMember_Click" />
         <asp:Button runat="server" ID="btnStaff" Text="Staff" OnClick="btnStaff_Click" />
         <div style="margin-top: 10px;">

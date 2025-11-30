@@ -221,5 +221,53 @@ namespace WebApplication1
                 return false;
             }
         }
+
+        /// <summary>
+        /// Changes password for an existing staff account
+        /// </summary>
+        /// <param name="username">Username of staff account (case-insensitive)</param>
+        /// <param name="oldPlainPassword">Current plain text password for verification</param>
+        /// <param name="newPlainPassword">New plain text password to set</param>
+        /// <returns>True if password changed successfully, false if current password is wrong or user not found</returns>
+        public static bool ChangeStaffPassword(string username, string oldPlainPassword, string newPlainPassword)
+        {
+            // Validate input parameters
+            if (string.IsNullOrWhiteSpace(username) || 
+                string.IsNullOrWhiteSpace(oldPlainPassword) || 
+                string.IsNullOrWhiteSpace(newPlainPassword))
+            {
+                return false;
+            }
+
+            EnsureFiles();
+
+            try
+            {
+                var staffDoc = XDocument.Load(StaffPath);
+                var encryptedOldPassword = EncryptionUtils.Encrypt(oldPlainPassword);
+                var encryptedNewPassword = EncryptionUtils.Encrypt(newPlainPassword);
+
+                // Find staff with matching username and current password
+                var staffElement = staffDoc.Descendants("Staff")
+                    .FirstOrDefault(s => 
+                        string.Equals(s.Element("Username")?.Value, username, StringComparison.OrdinalIgnoreCase) &&
+                        s.Element("PasswordHash")?.Value == encryptedOldPassword);
+
+                if (staffElement == null)
+                {
+                    return false; // Staff not found or current password is incorrect
+                }
+
+                // Update password hash with new encrypted password
+                staffElement.Element("PasswordHash").Value = encryptedNewPassword;
+                staffDoc.Save(StaffPath);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
