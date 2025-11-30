@@ -9,6 +9,7 @@ using System.Web.Security;
 using System.Web.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using WebApplication1.Top10Svc;
 
 namespace WebApplication1
 {
@@ -103,6 +104,15 @@ namespace WebApplication1
                 "renders PlayerMoneyView list",
                 "Loads game JSON from REST API and renders PlayerMoneyView controls for each player",
                 "#pokerPlayersMoneyView"
+            );
+            table.Rows.Add(
+                "Volodymyr Gleba",
+                "WCF Service",
+                "Top10ContentWords",
+                "string inputOrUrl",
+                "List<string> top10Words",
+                "Returns the top 10 content words after stopword removal and stemming.",
+                "#tryitTop10"
             );
 
             gvMemberDirectory.DataSource = table;
@@ -402,6 +412,28 @@ namespace WebApplication1
                 wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
                 try { return wc.UploadString(url, "PUT", body ?? string.Empty); }
                 catch (WebException ex) { return ReadError(ex); }
+            }
+        }
+
+        // Top10 Handler
+        protected void btnTop10_Click(object sender, EventArgs e)
+        {
+            bltTop10Results.Items.Clear();
+            
+            try
+            {
+                var client = new TextAnalyticsClient();
+                var input = txtTop10Input.Text;
+                var words = client.Top10ContentWords(input);
+
+                foreach (var w in words)
+                {
+                    bltTop10Results.Items.Add(w);
+                }
+            }
+            catch (Exception ex)
+            {
+                bltTop10Results.Items.Add("Error: " + ex.Message);
             }
         }
 

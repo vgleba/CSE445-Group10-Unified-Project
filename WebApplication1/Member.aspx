@@ -168,6 +168,23 @@
         <asp:PlaceHolder runat="server" ID="phPlayersMoney" />
     </div>
 
+    <!-- Top10 Content Words -->
+    <div id="tryitTop10" class="tryit-section">
+        <h3>Top10 Content Words (WCF)</h3>
+        <div class="input-group">
+            <label>Text or URL to analyze:</label>
+            <asp:TextBox runat="server" ID="txtTop10Input" TextMode="MultiLine" Rows="5" Width="400" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtTop10Input"
+                ErrorMessage="Input is required" ValidationGroup="Top10"
+                CssClass="validation-error" Display="Dynamic" />
+        </div>
+        <asp:Button runat="server" ID="btnTop10" Text="Get Top 10 Words" OnClick="btnTop10_Click" ValidationGroup="Top10" />
+        <div style="margin-top: 15px;">
+            <strong>Top 10 Content Words:</strong>
+            <asp:BulletedList runat="server" ID="bltTop10Results" BulletStyle="Numbered" />
+        </div>
+    </div>
+
 </form>
 </body>
 </html>

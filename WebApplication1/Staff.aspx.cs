@@ -2,16 +2,20 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using WebApplication1.PokerBotServiceReference;
+using Newtonsoft.Json;
 
 namespace WebApplication1
 {
     public partial class Staff : System.Web.UI.Page
     {
+        private const string geoResolveApiUrl = "https://localhost:7227/api/threat/georesolve";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // Ensure user is authenticated
@@ -83,6 +87,15 @@ namespace WebApplication1
                 "renders PlayerDeckView",
                 "Loads game JSON from REST API and renders it via PlayerDeckView user control",
                 "#pokerDeckView"
+            );
+            table.Rows.Add(
+                "Volodymyr Gleba",
+                "REST Service",
+                "GeoResolve",
+                "string locationText",
+                "GeoPoint + radius",
+                "Maps place mentions & directions to coordinates using gazetteer.",
+                "#tryitGeoResolve"
             );
 
             gvStaffDirectory.DataSource = table;
@@ -234,6 +247,52 @@ namespace WebApplication1
             }
 
             playerDeckView.RenderFromJson(gameState);
+        }
+
+        // GeoResolve Handler
+        protected void btnGeoResolve_Click(object sender, EventArgs e)
+        {
+            lblGeoError.Text = string.Empty;
+            litGeoResult.Text = string.Empty;
+
+            var loc = txtGeoLocation.Text;
+            if (string.IsNullOrWhiteSpace(loc))
+            {
+                lblGeoError.Text = "Please enter location text.";
+                return;
+            }
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var payload = new
+                    {
+                        location_Text = loc,
+                        origin = string.IsNullOrWhiteSpace(txtGeoOrigin.Text) ? null : txtGeoOrigin.Text
+                    };
+
+                    var json = JsonConvert.SerializeObject(payload);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var response = client.PostAsync(geoResolveApiUrl, content).Result;
+                    var raw = response.Content.ReadAsStringAsync().Result;
+
+                    litGeoResult.Text = string.Format("HTTP {0} {1}\n\n{2}", 
+                        (int)response.StatusCode, 
+                        response.ReasonPhrase, 
+                        raw);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        lblGeoError.Text = "Service returned an error. See response above.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                lblGeoError.Text = "Error calling GeoResolve service: " + ex.Message;
+            }
         }
 
         // Helper Methods

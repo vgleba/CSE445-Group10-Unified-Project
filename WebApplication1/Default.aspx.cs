@@ -67,28 +67,12 @@ namespace WebApplication1
 
             table.Rows.Add(
                 "Volodymyr Gleba", 
-                "WCF Service",
-                "Top10ContentWords",
-                "string inputOrUrl",
-                "List<string> top10Words",
-                "Returns the top 10 content words after stopword removal and stemming.",
-                "TryIt/Top10_TryIt.aspx");
-            table.Rows.Add(
-                "Volodymyr Gleba", 
                 "REST Service",
                 "ThreatNLP",
                 "string text",
                 "ThreatEvent[]",
                 "Rule-based extractor for threat type, direction, location and timestamp.",
                 "TryIt/ThreatNLP_TryIt.aspx");
-            table.Rows.Add(
-                "Volodymyr Gleba", 
-                "REST Service",
-                "GeoResolve",
-                "string locationText",
-                "GeoPoint + radius",
-                "Maps place mentions & directions to coordinates using gazetteer.",
-                "TryIt/GeoResolve_TryIt.aspx");
             table.Rows.Add(
                 "Volodymyr Gleba", 
                 "REST Service",

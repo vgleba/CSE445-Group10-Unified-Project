@@ -134,6 +134,25 @@
         <uc:PlayerDeckView runat="server" ID="playerDeckView" Visible="false" />
     </div>
 
+    <!-- GeoResolve -->
+    <div id="tryitGeoResolve" class="tryit-section">
+        <h3>GeoResolve (REST)</h3>
+        <div class="input-group">
+            <label>Location Text:</label>
+            <asp:TextBox runat="server" ID="txtGeoLocation" Width="400" />
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtGeoLocation"
+                ErrorMessage="Location is required" ValidationGroup="GeoResolve"
+                CssClass="validation-error" Display="Dynamic" />
+        </div>
+        <div class="input-group">
+            <label>Origin (optional):</label>
+            <asp:TextBox runat="server" ID="txtGeoOrigin" Width="400" />
+        </div>
+        <asp:Button runat="server" ID="btnGeoResolve" Text="Resolve Location" OnClick="btnGeoResolve_Click" ValidationGroup="GeoResolve" />
+        <asp:Label runat="server" ID="lblGeoError" ForeColor="Red" style="display: block; margin-top: 10px;" />
+        <pre><asp:Literal runat="server" ID="litGeoResult" /></pre>
+    </div>
+
 </form>
 </body>
 </html>
