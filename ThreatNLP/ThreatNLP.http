@@ -1,6 +1,0 @@
-@ThreatNLP_HostAddress = http://localhost:5290
-
-GET {{ThreatNLP_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

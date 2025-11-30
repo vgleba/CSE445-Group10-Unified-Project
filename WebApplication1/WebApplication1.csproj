@@ -216,7 +216,6 @@
     <Content Include="TryIt\Hash_TryIt.aspx" />
     <Content Include="TryIt\ThreatNLP_TryIt.aspx" />
     <Content Include="TryIt\Top10_TryIt.aspx" />
-    <Content Include="TryIt\WebDownload_TryIt.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -348,13 +347,6 @@
     </Compile>
     <Compile Include="TryIt\Top10_TryIt.aspx.designer.cs">
       <DependentUpon>Top10_TryIt.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TryIt\WebDownload_TryIt.aspx.cs">
-      <DependentUpon>WebDownload_TryIt.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TryIt\WebDownload_TryIt.aspx.designer.cs">
-      <DependentUpon>WebDownload_TryIt.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
