@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerBot", "PokerBot\PokerB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerEngine", "PokerEngine\PokerEngine.csproj", "{A412862C-E665-4A34-9623-864031602800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analytics", "ThreatNLP\Analytics.csproj", "{B2B5F2EA-A24D-D1F4-0D28-C8EB950D6668}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Top10ContentWords", "Top10ContentWords\Top10ContentWords.csproj", "{56AAA8AB-68BD-4278-9217-D42C00A943FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalComponents", "LocalComponents\LocalComponents.csproj", "{16DFCAFD-7052-AD5F-50CA-9ED72B8D6642}"
@@ -22,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebAppli
 		{4CFC312B-60C7-4620-BE91-2DBA43EC9539} = {4CFC312B-60C7-4620-BE91-2DBA43EC9539}
 		{56AAA8AB-68BD-4278-9217-D42C00A943FE} = {56AAA8AB-68BD-4278-9217-D42C00A943FE}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreatNLPWebApp", "ThreatNLPWebApp\ThreatNLPWebApp.csproj", "{9DD03142-A626-4023-9EF0-1C616F5367DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,6 @@ Global
 		{A412862C-E665-4A34-9623-864031602800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A412862C-E665-4A34-9623-864031602800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A412862C-E665-4A34-9623-864031602800}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2B5F2EA-A24D-D1F4-0D28-C8EB950D6668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2B5F2EA-A24D-D1F4-0D28-C8EB950D6668}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2B5F2EA-A24D-D1F4-0D28-C8EB950D6668}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2B5F2EA-A24D-D1F4-0D28-C8EB950D6668}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56AAA8AB-68BD-4278-9217-D42C00A943FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{56AAA8AB-68BD-4278-9217-D42C00A943FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56AAA8AB-68BD-4278-9217-D42C00A943FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,6 +57,10 @@ Global
 		{1E6B6B7C-2433-4A66-B3B2-3A62D49B87D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E6B6B7C-2433-4A66-B3B2-3A62D49B87D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E6B6B7C-2433-4A66-B3B2-3A62D49B87D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DD03142-A626-4023-9EF0-1C616F5367DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DD03142-A626-4023-9EF0-1C616F5367DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DD03142-A626-4023-9EF0-1C616F5367DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DD03142-A626-4023-9EF0-1C616F5367DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
