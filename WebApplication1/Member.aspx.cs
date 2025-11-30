@@ -324,7 +324,7 @@ namespace WebApplication1
                 Amount = amount
             };
 
-            string response = DoPost("http://webstrar10.fulton.asu.edu/page1/api/games/apply", JsonConvert.SerializeObject(request));
+            string response = DoPost("http://webstrar10.fulton.asu.edu/page1/api/games/apply", request);
 
             try
             {
@@ -491,6 +491,17 @@ namespace WebApplication1
                 wc.Encoding = Encoding.UTF8;
                 wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
                 try { return wc.UploadString(url, "POST", body ?? string.Empty); }
+                catch (WebException ex) { return ReadError(ex); }
+            }
+        }
+
+        private string DoPost<T>(string url, T body)
+        {
+            using (WebClient wc = new WebClient())
+            {
+                wc.Encoding = Encoding.UTF8;
+                wc.Headers[HttpRequestHeader.ContentType] = "application/json";
+                try { return wc.UploadString(url, "POST", JsonConvert.SerializeObject(body)); }
                 catch (WebException ex) { return ReadError(ex); }
             }
         }

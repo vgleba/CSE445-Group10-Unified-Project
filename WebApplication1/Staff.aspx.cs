@@ -183,7 +183,7 @@ namespace WebApplication1
                 return;
             }
 
-            string gameState = DoGet(string.Format("http://webstrar10.fulton.asu.edu/page1/api/games//{0}", gameId));
+            string gameState = DoGet(string.Format("http://webstrar10.fulton.asu.edu/page1/api/games/{0}", gameId));
 
             if (string.IsNullOrWhiteSpace(gameState))
             {
