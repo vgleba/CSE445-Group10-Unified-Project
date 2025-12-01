@@ -14,7 +14,7 @@ namespace WebApplication1
 {
     public partial class Staff : System.Web.UI.Page
     {
-        private const string geoResolveApiUrl = "https://localhost:7227/api/threat/georesolve";
+        private const string geoResolveApiUrl = "http://webstrar10.fulton.asu.edu/Page6/api/threat/georesolve";
 
         protected void Page_Load(object sender, EventArgs e)
         {
