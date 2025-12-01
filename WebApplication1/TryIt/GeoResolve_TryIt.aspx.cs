@@ -7,8 +7,8 @@ namespace WebApplication1.TryIt
 {
     public partial class GeoResolve_TryIt : System.Web.UI.Page
     {
-        private const string baseApiUrl = "https://localhost:44323";
-        private const string geoResolvePath = "/api/threat/georesolve";
+        private const string baseApiUrl = "http://webstrar10.fulton.asu.edu/Page6/";
+        private const string geoResolvePath = "api/threat/georesolve";
 
         protected void Page_Load(object sender, EventArgs e)
         {

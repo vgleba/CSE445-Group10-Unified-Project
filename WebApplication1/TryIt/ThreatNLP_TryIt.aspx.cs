@@ -8,8 +8,8 @@ namespace WebApplication1.TryIt
 {
     public partial class ThreatNLP_TryIt : System.Web.UI.Page
     {
-        private const string baseApiUrl = "https://localhost:44323";
-        private const string threatNlpPath = "/api/threat/nlp";
+        private const string baseApiUrl = "http://webstrar10.fulton.asu.edu/Page6/";
+        private const string threatNlpPath = "api/threat/nlp";
 
         private const string CookieName = "AAI_LastThreatText";
 
